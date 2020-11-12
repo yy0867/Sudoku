@@ -62,7 +62,7 @@ void Sudoku::randomize_sudoku() {
     for (int t = 0; t < count; t++) {
         first = random() - 1;
         second = random() - 1;
-        
+
         if (first == second)
             continue;
 
@@ -73,7 +73,7 @@ void Sudoku::randomize_sudoku() {
                 swap_line(first, second, ROW_LINE);
             break;
         case COL_LINE:
-            if(is_same_group(first, second))  
+            if(is_same_group(first, second))
                 swap_line(first, second, COL_LINE);
             break;
         case ROW_GROUP:
