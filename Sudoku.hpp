@@ -12,6 +12,7 @@
 <<<<<<< HEAD
 =======
 #define FRAME_INTERVAR 4
+#define X_PADDING 1
 
 #define COLOR_DEFAULT 0
 #define COLOR_BLACK 40
@@ -51,7 +52,9 @@ class Sudoku {
     void printCursor() const;
     void printColorCursor(int x, int y, int color, const string str) const;
     void printColorCursor(int x, int y, int color, const char str) const;
+    void printColorCursor(int x, int y, int color, char *str) const;
     void printColorCursor(int x, int y, int color, const int str) const;
+    char *convertNumberToFullChar(int num) const;
 
     bool cursor_possible(const int new_x, const int new_y) const;
     void cursor();

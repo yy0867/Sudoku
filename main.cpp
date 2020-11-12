@@ -16,11 +16,14 @@ int main() {
 
     Sudoku sud;
 <<<<<<< HEAD
+<<<<<<< HEAD
     while (1) {
         sud.print();
         sud.cursor();
 =======
 
+=======
+>>>>>>> Optimize board, number printing
     sud.printBoard();
     while (1) {
         sud.moveCursor();

@@ -144,22 +144,23 @@ void gotoxy(int x, int y) {
 }
 
 void Sudoku::print_form() const {
-    for (int i = 0; i < FORM_SIZE; i++) {
-        if (i % 4 == 0) {
-            printf("\033[94m");
-            cout << "+ + + + + + + + + + + + +" << endl;
-            printf("\033[0m");
+    for (int y = 0; y < FORM_SIZE; y++) {
+        if (y % 4 == 0) {
+            for (int i = 0; i < FORM_SIZE * 2; i++) {
+                printColorCursor(X_PADDING + i, y + 1, 94, "━");
+            }
         }
-        for (int j = 0; i % 4 != 0 && j < FORM_SIZE; j++) {
-            if (j % 4 == 0) {
-                printf("\033[94m");
-                cout << "+ ";
-                printf("\033[0m");
-            } else
-                cout << "  ";
+        for (int x = 0; x < 4; x++) {
+            if (y == 0) {
+                printColorCursor(X_PADDING + x * 8, y + 1, 94, "┳┳");
+            } else if (y == 12) {
+                printColorCursor(X_PADDING + x * 8, y + 1, 94, "┻┻");
+            } else if (y % 4 == 0) {
+                printColorCursor(X_PADDING + x * 8, y + 1, 94, "╋╋");
+            } else {
+                printColorCursor(X_PADDING + x * 8, y + 1, 94, "┃┃");
+            }
         }
-        if (i % 4 != 0)
-            cout << endl;
     }
 }
 
@@ -238,13 +239,17 @@ bool Sudoku::isFrameCursor(int cursor) const {
 }
 
 void Sudoku::printBoard() const {
-    gotoxy(1, 1);
+    gotoxy(X_PADDING, 1);
     print_form();
     for (int i = 0, row = 0; i < FORM_SIZE; i++) {
         for (int j = 0, column = 0; !isFrameCursor(i) && j < FORM_SIZE; j++) {
             if (!isFrameCursor(j)) {
                 if (sudoku[row][column]) {
-                    printColorCursor(j * 2 + 1, i + 1, 34, sudoku[row][column]);
+                    // printColorCursor(j * 2 + 1, i + 1, 34,
+                    // sudoku[row][column]);
+                    printColorCursor(
+                        j * 2 + 1, i + 1, 34,
+                        convertNumberToFullChar(sudoku[row][column]));
                 }
                 column++;
             }
@@ -252,13 +257,18 @@ void Sudoku::printBoard() const {
         if (!isFrameCursor(i))
             row++;
     }
-    gotoxy(1, 15);
+    gotoxy(X_PADDING, 15);
 }
 
 void Sudoku::printColorCursor(int x, int y, int color, const string str) const {
     gotoxy(x, y);
-    cout << "\033[" << color << "m" << str << " \033[0m";
-    // sprintf("\033[%dm%s \033[0m", color, str)
+    cout << "\033[" << color << "m" << str << "\033[0m";
+}
+
+void Sudoku::printColorCursor(int x, int y, int color, char *str) const {
+    gotoxy(x, y);
+    char *temp = str;
+    printf("\033[%dm%s\033[0m", color, temp);
 }
 
 void Sudoku::printColorCursor(int x, int y, int color, const char str) const {
@@ -271,9 +281,12 @@ void Sudoku::printColorCursor(int x, int y, int color, const int str) const {
     printf("\033[%dm%d \033[0m", color, str);
 }
 
+<<<<<<< HEAD
 void Sudoku::printCursor() const {}
 
 >>>>>>> Optimize map, cursor printing
+=======
+>>>>>>> Optimize board, number printing
 bool Sudoku::cursor_possible(const int new_x, const int new_y) const {
     if ((new_x % 2 == 0 || new_x < 1 || new_x > 24 || (new_x - 1) % 8 == 0) ||
         (new_y < 1 || new_y > 12 || (new_y - 1) % 4 == 0))
@@ -284,18 +297,28 @@ bool Sudoku::cursor_possible(const int new_x, const int new_y) const {
 bool is_digit(int key) { return (1 <= key - KEY_NUM && key - KEY_NUM <= 9); }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 void Sudoku::cursor() {
     int num = sudoku[row][col];
 =======
+=======
+char *Sudoku::convertNumberToFullChar(int num) const { // input 0 ~ 9 integer
+    char fullNum[] = "０";
+    fullNum[2] += num;
+    char *result = fullNum;
+    return result;
+}
+
+>>>>>>> Optimize board, number printing
 void Sudoku::moveCursor() {
     int num = sudoku[row][column];
     if (num)
-        printColorCursor(x, y, 7, num);
+        printColorCursor(x, y, 7, convertNumberToFullChar(num));
     else
-        printColorCursor(x, y, 7, " ");
+        printColorCursor(x, y, 7, "  ");
 
-    gotoxy(1, 15);
-    cout << "                       ";
+    gotoxy(23, 15);
+    // cout << "                       ";
     moveCursor(get_key());
 }
 
@@ -303,7 +326,7 @@ void Sudoku::moveCursor(int key) {
     if (is_digit(key)) {
         if (!origin[row][column]) {
             if (!value_possible(row, column, key - KEY_NUM)) {
-                printColorCursor(1, 15, 32, "Can't insert number!");
+                printColorCursor(X_PADDING, 15, 33, "Can't insert number!");
             } else
                 sudoku[row][column] = key - KEY_NUM;
         }
@@ -311,9 +334,10 @@ void Sudoku::moveCursor(int key) {
     }
 
     if (sudoku[row][column])
-        printColorCursor(x, y, 33, sudoku[row][column]);
+        printColorCursor(x, y, 33,
+                         convertNumberToFullChar(sudoku[row][column]));
     else
-        printColorCursor(x, y, 33, " ");
+        printColorCursor(x, y, 33, "  ");
 
     switch (key) {
     case KEY_UP:
