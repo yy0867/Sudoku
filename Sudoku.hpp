@@ -1,9 +1,28 @@
+#include <string>
+
 #define N 9
 #define MOVE 2
 #define FORM_SIZE 13
 #define LOW 60
 #define MEDIUM 40
 #define HIGH 20
+#define FRAME_INTERVAR 4
+#define ROW_FRAME_INTERVAR 3
+#define COLUMN_FRAME_INTERVAR 3
+#define X_PADDING 5
+#define Y_PADDING 3
+
+/*#define COLOR_DEFAULT 0
+#define COLOR_BLACK 40
+#define COLOR_RED 41     // Z
+#define COLOR_GREEN 42   // S
+#define COLOR_BROWN 43   // O
+#define COLOR_BLUE 44    // J
+#define COLOR_MAGENTA 45 // T
+#define COLOR_CYAN 46    // I
+#define COLOR_GRAY 47    // L*/
+
+using namespace std;
 
 class Sudoku {
   public:
@@ -17,15 +36,6 @@ class Sudoku {
     bool remove(const int row, const int col);
     void print_form() const;
     void print() const;
-<<<<<<< HEAD
-
-    bool cursor_possible(const int new_x, const int new_y) const;
-    void cursor();
-
-  private:
-    int x, y;
-    int row, col;
-=======
     void printBoard() const;
     void printCursor() const;
     void printColorCursor(int x, int y, int color, const string str) const;
@@ -47,11 +57,6 @@ class Sudoku {
   private:
     int x, y;
     int row, column;
-<<<<<<< HEAD
->>>>>>> Optimize map, cursor printing
-    int sudoku[N][N];
-=======
 
->>>>>>> More optimize board, number printing
     bool origin[N][N];
 };

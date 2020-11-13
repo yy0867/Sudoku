@@ -10,11 +10,6 @@
 #define KEY_LEFT 68
 #define KEY_NUM 48
 #define KEY_DELETE 100
-<<<<<<< HEAD
-=======
-//#define ESCAPE_SEQENCE 27 
-//OCODOAOB
->>>>>>> Optimize map, cursor printing
 
 int getch() {
     int ch;
@@ -34,16 +29,8 @@ int getch() {
 
 int get_key() {
     int ch;
-<<<<<<< HEAD
     ch = getch();
 
-=======
-    struct tm *first, second;
-
-    ch = getch();
-    const time_t f = time(NULL);
-    first = localtime(&f);
->>>>>>> Optimize map, cursor printing
     // up down left right
     if (ch == 27) {
         ch = getch();

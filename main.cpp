@@ -1,4 +1,4 @@
-#include "Sudoku.hpp"
+#include "Sudoku.cpp"
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
@@ -11,20 +11,10 @@ int main() {
     system("clear");
 
     Sudoku sud;
-<<<<<<< HEAD
-<<<<<<< HEAD
+    sud.printBoard();
+
     while (1) {
-        sud.print();
-        sud.cursor();
-=======
-
-=======
->>>>>>> Optimize board, number printing
-        sud.printBoard();
-
-        while (1) {
-            sud.moveCursor();
->>>>>>> Optimize map, cursor printing
-        }
-        return 0;
+        sud.moveCursor();
     }
+    return 0;
+}
