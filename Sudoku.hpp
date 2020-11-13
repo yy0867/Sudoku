@@ -57,6 +57,5 @@ class Sudoku {
   private:
     int x, y;
     int row, column;
-
     bool origin[N][N];
 };
