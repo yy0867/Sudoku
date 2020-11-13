@@ -4,6 +4,9 @@
 #define DEFAULT_FONT_COLOR 32
 #define CUSTOM_FONT_COLOR 37
 
+#define DEFAULT_FONT_COLOR 32
+#define CUSTOM_FONT_COLOR 37
+
 using namespace std;
 
 void gotoxy(int x, int y) {
