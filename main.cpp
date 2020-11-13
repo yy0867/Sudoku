@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 #include "Sudoku.hpp"
-=======
-#include "Sudoku.cpp"
->>>>>>> Optimize map, cursor printing
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
@@ -24,11 +20,11 @@ int main() {
 
 =======
 >>>>>>> Optimize board, number printing
-    sud.printBoard();
-    while (1) {
-        sud.moveCursor();
->>>>>>> Optimize map, cursor printing
-    }
+        sud.printBoard();
 
-    return 0;
-}
+        while (1) {
+            sud.moveCursor();
+>>>>>>> Optimize map, cursor printing
+        }
+        return 0;
+    }
