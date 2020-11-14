@@ -57,9 +57,5 @@ class Sudoku {
   private:
     int x, y;
     int row, column;
-<<<<<<< HEAD
-=======
-
->>>>>>> More optimize board, number printing
     bool origin[N][N];
 };
