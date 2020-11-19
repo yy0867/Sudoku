@@ -48,7 +48,7 @@ Sudoku::Sudoku(int level) {
                                : sudoku[i][j] = sudoku[i - 3][j] + 1;
 
     // randomize basic sudoku
-    swap_line(0, 2, ROW_LINE);
+    swap_number(1, 9);
 }
 
 int Sudoku::random(const int n) {
@@ -334,9 +334,21 @@ void Sudoku::swap_line(int first, int second, int flag) {
     }
 }
 
-void Sudoku::swap_group(int first, int second, int flag) {}
+void Sudoku::swap_group(int first, int second, int flag) {
+    for (int i = 0; i < 3; i++)
+        swap_line(first * 3 + i, second * 3 + i, flag);
+}
 
-void Sudoku::swap_number(int first, int second) {}
+void Sudoku::swap_number(int first, int second) {
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            if (sudoku[i][j] == first)
+                sudoku[i][j] = second;
+            else if (sudoku[i][j] == second)
+                sudoku[i][j] = first;
+        }
+    }
+}
 
 /*
 void Sudoku::print() const { // Alternated
