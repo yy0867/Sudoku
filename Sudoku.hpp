@@ -64,7 +64,11 @@ class Sudoku {
     // first & second must be in the same group [1, 2, 3 | 4, 5, 6 | 7, 8, 9]
     // flag -> ROW_LINE / COL_LINE
     void swap_line(int first, int second, int flag);
+
+    // first, second = [0, 1, 2]
     void swap_group(int first, int second, int flag);
+
+    // first & second must not be same
     void swap_number(int first, int second);
 
   private:
