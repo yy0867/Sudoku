@@ -48,7 +48,36 @@ Sudoku::Sudoku(int level) {
                                : sudoku[i][j] = sudoku[i - 3][j] + 1;
 
     // randomize basic sudoku
-    swap_number(1, 9);
+    randomize_sudoku();
+}
+
+void Sudoku::randomize_sudoku() {
+    int count = random(150) + 30;
+    int first, second;
+    for (int t = 0; t < count; t++) {
+        first = random() - 1;
+        while ((second = random() - 1) == first) {
+        }
+
+        int rand = random(5);
+        switch (rand) {
+        case ROW_LINE:
+            swap_line(first, second, ROW_LINE);
+            break;
+        case COL_LINE:
+            swap_line(first, second, COL_LINE);
+            break;
+        case ROW_GROUP:
+            swap_group(first % 3, second % 3, ROW_GROUP);
+            break;
+        case COL_GROUP:
+            swap_group(first % 3, second % 3, COL_GROUP);
+            break;
+        case NUM:
+            swap_number(first + 1, second + 1);
+            break;
+        }
+    }
 }
 
 int Sudoku::random(const int n) {
@@ -335,6 +364,7 @@ void Sudoku::swap_line(int first, int second, int flag) {
 }
 
 void Sudoku::swap_group(int first, int second, int flag) {
+    flag += 2; // ROW_LINE -> ROW_GROUP | COL_LINE -> COL_GROUP
     for (int i = 0; i < 3; i++)
         swap_line(first * 3 + i, second * 3 + i, flag);
 }

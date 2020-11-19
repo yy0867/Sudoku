@@ -16,9 +16,7 @@
 #define X_PADDING 5
 #define Y_PADDING 3
 
-#define ROW_LINE 1
-#define COL_LINE 2
-
+enum FLAG { ROW_LINE = 1, COL_LINE, ROW_GROUP, COL_GROUP, NUM };
 /*#define COLOR_DEFAULT 0
 #define COLOR_BLACK 40
 #define COLOR_RED 41     // Z
@@ -38,6 +36,7 @@ class Sudoku {
     void set_sudoku(const int row, const int col, const int num) {
         sudoku[row][col] = num;
     }
+    void randomize_sudoku();
     int random(const int n = N); // random() -> 1 ~ 9, random(n) -> 1 ~ n
     bool value_possible(const int row, const int col, const int num) const;
     bool remove(const int row, const int col);
@@ -66,6 +65,7 @@ class Sudoku {
     void swap_line(int first, int second, int flag);
 
     // first, second = [0, 1, 2]
+    // flag -> ROW_GROUP / COL_GROUP
     void swap_group(int first, int second, int flag);
 
     // first & second must not be same
