@@ -37,6 +37,7 @@ class Sudoku {
         sudoku[row][col] = num;
     }
     void randomize_sudoku();
+    void make_blank(int level);
     int random(const int n = N); // random() -> 1 ~ 9, random(n) -> 1 ~ n
     bool value_possible(const int row, const int col, const int num) const;
     bool remove(const int row, const int col);

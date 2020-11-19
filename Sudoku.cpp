@@ -49,6 +49,7 @@ Sudoku::Sudoku(int level) {
 
     // randomize basic sudoku
     randomize_sudoku();
+    make_blank(level);
 }
 
 void Sudoku::randomize_sudoku() {
@@ -56,8 +57,9 @@ void Sudoku::randomize_sudoku() {
     int first, second;
     for (int t = 0; t < count; t++) {
         first = random() - 1;
-        while ((second = random() - 1) == first) {
-        }
+        second = random() - 1;
+        if (first == second)
+            continue;
 
         int rand = random(5);
         switch (rand) {
@@ -77,6 +79,18 @@ void Sudoku::randomize_sudoku() {
             swap_number(first + 1, second + 1);
             break;
         }
+    }
+}
+
+void Sudoku::make_blank(int level) {
+    while (level > 0) {
+        int r = random();
+        int c = random();
+        if (!origin[r][c])
+            continue;
+        remove(r, c);
+        origin[r][c] = false;
+        level--;
     }
 }
 
