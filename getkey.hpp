@@ -11,6 +11,10 @@
 #define KEY_NUM 48
 #define KEY_DELETE 100
 
+// get 2 bytes of temp value before real key value
+#define KEY_ESCAPE1 27
+#define KEY_ESCAPE2 91
+
 int getch() {
     int ch;
     struct termios buf, save;
@@ -32,9 +36,9 @@ int get_key() {
     ch = getch();
 
     // up down left right
-    if (ch == 27) {
+    if (ch == KEY_ESCAPE1) {
         ch = getch();
-        if (ch == 91) {
+        if (ch == KEY_ESCAPE2) {
             ch = getch();
             switch (ch) {
             case 65:
