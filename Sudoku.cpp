@@ -33,7 +33,8 @@ Sudoku::Sudoku(int level) {
         }
     }
 
-    while (level > 0) {
+
+    /*while (level > 0) {
         int rand_row = random() - 1, rand_col = random() - 1,
             rand_num = random();
 
@@ -42,7 +43,8 @@ Sudoku::Sudoku(int level) {
             origin[rand_row][rand_col] = true;
             level--;
         }
-    }
+    }*/
+
 }
 
 int Sudoku::random(const int n) {
