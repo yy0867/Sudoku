@@ -16,6 +16,9 @@
 #define X_PADDING 5
 #define Y_PADDING 3
 
+#define ROW_LINE 1
+#define COL_LINE 2
+
 /*#define COLOR_DEFAULT 0
 #define COLOR_BLACK 40
 #define COLOR_RED 41     // Z
@@ -57,6 +60,12 @@ class Sudoku {
     bool isFrameCursor(int cursor) const;
     bool isFrameCursor(const int new_x, const int new_y) const;
     int sudoku[N][N];
+
+    // first & second must be in the same group [1, 2, 3 | 4, 5, 6 | 7, 8, 9]
+    // flag -> ROW_LINE / COL_LINE
+    void swap_line(int first, int second, int flag);
+    void swap_group(int first, int second, int flag);
+    void swap_number(int first, int second);
 
   private:
     int x, y;
