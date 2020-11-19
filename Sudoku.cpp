@@ -1,6 +1,5 @@
 ﻿#include "Sudoku.hpp"
-#include "getkey.hpp"
-#include <iostream>
+//#include "getkey.hpp"
 
 #define DEFAULT_FONT_COLOR 32
 #define CUSTOM_FONT_COLOR 37
@@ -14,7 +13,7 @@ void gotoxy(int x, int y) {
 
 bool is_digit(int key) { return (1 <= key - KEY_NUM && key - KEY_NUM <= 9); }
 
-bool out_of_bound(const int row, const int column, const int num = 3) {
+bool out_of_bound(const int row, const int column, const int num) {
     if (row < 0 || row >= N || column < 0 || column >= N || num <= 0 ||
         num > N) {
         // perror("value out of range!");
@@ -29,22 +28,24 @@ Sudoku::Sudoku(int level) {
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {
             sudoku[i][j] = 0;
-            origin[i][j] = false;
+            origin[i][j] = true;
         }
     }
 
+    // set up basic sudoku
+    for (int i = 0; i < N; i++)
+        sudoku[0][i] = i + 1;
 
-    /*while (level > 0) {
-        int rand_row = random() - 1, rand_col = random() - 1,
-            rand_num = random();
+    for (int i = 1; i < 3; i++)
+        for (int j = 0; j < N; j++)
+            sudoku[i][j] = (sudoku[i - 1][j] >= 7) ? sudoku[i - 1][j] - 6
+                                                   : sudoku[i - 1][j] + 3;
 
-        if (value_possible(rand_row, rand_col, rand_num)) {
-            set_sudoku(rand_row, rand_col, rand_num);
-            origin[rand_row][rand_col] = true;
-            level--;
-        }
-    }*/
-
+    for (int i = 3; i < N; i++)
+        for (int j = 0; j < N; j++)
+            sudoku[i][j] = (sudoku[i - 3][j] == 9)
+                               ? sudoku[i][j] = 1
+                               : sudoku[i][j] = sudoku[i - 3][j] + 1;
 }
 
 int Sudoku::random(const int n) {

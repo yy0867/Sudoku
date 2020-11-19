@@ -1,3 +1,7 @@
+#ifndef __SUDOKU_HPP__
+#define __SUDOKU_HPP__
+
+#include "getkey.hpp"
 #include <string>
 
 #define N 9
@@ -59,3 +63,9 @@ class Sudoku {
     int row, column;
     bool origin[N][N];
 };
+
+extern void gotoxy(int x, int y);
+extern bool is_digit(int key);
+extern bool out_of_bound(const int row, const int column, const int num = 3);
+
+#endif
