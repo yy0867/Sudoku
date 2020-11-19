@@ -46,6 +46,9 @@ Sudoku::Sudoku(int level) {
             sudoku[i][j] = (sudoku[i - 3][j] == 9)
                                ? sudoku[i][j] = 1
                                : sudoku[i][j] = sudoku[i - 3][j] + 1;
+
+    // randomize basic sudoku
+    swap_line(0, 2, ROW_LINE);
 }
 
 int Sudoku::random(const int n) {
@@ -311,6 +314,29 @@ bool Sudoku::isFrameCursor(const int xPos, const int yPos) const {
     }
     return true;
 }
+
+void Sudoku::swap_line(int first, int second, int flag) {
+    int temp[N];
+    for (int i = 0; i < N; i++) {
+        temp[i] = (flag == ROW_LINE) ? sudoku[i][first] : sudoku[first][i];
+    }
+    for (int i = 0; i < N; i++) {
+        if (flag == ROW_LINE)
+            sudoku[i][first] = sudoku[i][second];
+        else
+            sudoku[first][i] = sudoku[second][i];
+    }
+    for (int i = 0; i < N; i++) {
+        if (flag == ROW_LINE)
+            sudoku[i][second] = temp[i];
+        else
+            sudoku[second][i] = temp[i];
+    }
+}
+
+void Sudoku::swap_group(int first, int second, int flag) {}
+
+void Sudoku::swap_number(int first, int second) {}
 
 /*
 void Sudoku::print() const { // Alternated
