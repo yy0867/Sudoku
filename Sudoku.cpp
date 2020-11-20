@@ -52,6 +52,10 @@ Sudoku::Sudoku(int level) {
     make_blank(level);
 }
 
+bool is_same_group(int first, int second) {
+    return (first % 3 * 3) <= second && second <= (first % 3 * 3 + 2);
+}
+
 void Sudoku::randomize_sudoku() {
     int count = random(150) + 30;
     int first, second;
@@ -64,9 +68,11 @@ void Sudoku::randomize_sudoku() {
         int rand = random(5);
         switch (rand) {
         case ROW_LINE:
+            if(!is_same_group) break;
             swap_line(first, second, ROW_LINE);
             break;
         case COL_LINE:
+            if(!is_same_group) break;
             swap_line(first, second, COL_LINE);
             break;
         case ROW_GROUP:
@@ -88,7 +94,7 @@ void Sudoku::make_blank(int level) {
         int c = random();
         if (!origin[r][c])
             continue;
-        remove(r, c);
+        sudoku[r][c] = 0;
         origin[r][c] = false;
         level--;
     }
