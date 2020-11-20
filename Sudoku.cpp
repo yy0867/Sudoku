@@ -1,6 +1,5 @@
 ﻿#include "Sudoku.hpp"
-#include "getkey.hpp"
-#include <iostream>
+//#include "getkey.hpp"
 
 #define DEFAULT_FONT_COLOR 32
 #define CUSTOM_FONT_COLOR 37
@@ -14,7 +13,7 @@ void gotoxy(int x, int y) {
 
 bool is_digit(int key) { return (1 <= key - KEY_NUM && key - KEY_NUM <= 9); }
 
-bool out_of_bound(const int row, const int column, const int num = 3) {
+bool out_of_bound(const int row, const int column, const int num) {
     if (row < 0 || row >= N || column < 0 || column >= N || num <= 0 ||
         num > N) {
         // perror("value out of range!");
@@ -29,22 +28,70 @@ Sudoku::Sudoku(int level) {
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {
             sudoku[i][j] = 0;
-            origin[i][j] = false;
+            origin[i][j] = true;
         }
     }
 
+    // set up basic sudoku
+    for (int i = 0; i < N; i++)
+        sudoku[0][i] = i + 1;
 
-    /*while (level > 0) {
-        int rand_row = random() - 1, rand_col = random() - 1,
-            rand_num = random();
+    for (int i = 1; i < 3; i++)
+        for (int j = 0; j < N; j++)
+            sudoku[i][j] = (sudoku[i - 1][j] >= 7) ? sudoku[i - 1][j] - 6
+                                                   : sudoku[i - 1][j] + 3;
 
-        if (value_possible(rand_row, rand_col, rand_num)) {
-            set_sudoku(rand_row, rand_col, rand_num);
-            origin[rand_row][rand_col] = true;
-            level--;
+    for (int i = 3; i < N; i++)
+        for (int j = 0; j < N; j++)
+            sudoku[i][j] = (sudoku[i - 3][j] == 9)
+                               ? sudoku[i][j] = 1
+                               : sudoku[i][j] = sudoku[i - 3][j] + 1;
+
+    // randomize basic sudoku
+    randomize_sudoku();
+    make_blank(level);
+}
+
+void Sudoku::randomize_sudoku() {
+    int count = random(150) + 30;
+    int first, second;
+    for (int t = 0; t < count; t++) {
+        first = random() - 1;
+        second = random() - 1;
+        if (first == second)
+            continue;
+
+        int rand = random(5);
+        switch (rand) {
+        case ROW_LINE:
+            swap_line(first, second, ROW_LINE);
+            break;
+        case COL_LINE:
+            swap_line(first, second, COL_LINE);
+            break;
+        case ROW_GROUP:
+            swap_group(first % 3, second % 3, ROW_GROUP);
+            break;
+        case COL_GROUP:
+            swap_group(first % 3, second % 3, COL_GROUP);
+            break;
+        case NUM:
+            swap_number(first + 1, second + 1);
+            break;
         }
-    }*/
+    }
+}
 
+void Sudoku::make_blank(int level) {
+    while (level > 0) {
+        int r = random();
+        int c = random();
+        if (!origin[r][c])
+            continue;
+        remove(r, c);
+        origin[r][c] = false;
+        level--;
+    }
 }
 
 int Sudoku::random(const int n) {
@@ -309,6 +356,42 @@ bool Sudoku::isFrameCursor(const int xPos, const int yPos) const {
         return false;
     }
     return true;
+}
+
+void Sudoku::swap_line(int first, int second, int flag) {
+    int temp[N];
+    for (int i = 0; i < N; i++) {
+        temp[i] = (flag == ROW_LINE) ? sudoku[i][first] : sudoku[first][i];
+    }
+    for (int i = 0; i < N; i++) {
+        if (flag == ROW_LINE)
+            sudoku[i][first] = sudoku[i][second];
+        else
+            sudoku[first][i] = sudoku[second][i];
+    }
+    for (int i = 0; i < N; i++) {
+        if (flag == ROW_LINE)
+            sudoku[i][second] = temp[i];
+        else
+            sudoku[second][i] = temp[i];
+    }
+}
+
+void Sudoku::swap_group(int first, int second, int flag) {
+    flag += 2; // ROW_LINE -> ROW_GROUP | COL_LINE -> COL_GROUP
+    for (int i = 0; i < 3; i++)
+        swap_line(first * 3 + i, second * 3 + i, flag);
+}
+
+void Sudoku::swap_number(int first, int second) {
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            if (sudoku[i][j] == first)
+                sudoku[i][j] = second;
+            else if (sudoku[i][j] == second)
+                sudoku[i][j] = first;
+        }
+    }
 }
 
 /*

@@ -1,4 +1,4 @@
-#include "Sudoku.cpp"
+#include "Sudoku.hpp"
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
