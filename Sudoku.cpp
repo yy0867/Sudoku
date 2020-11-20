@@ -22,6 +22,10 @@ bool out_of_bound(const int row, const int column, const int num) {
     return false;
 }
 
+bool is_same_group(int first, int second) {
+    return (first / 3 == second / 3);
+}
+
 Sudoku::Sudoku(int level) {
     x = 1 + X_PADDING, y = 1 + Y_PADDING;
     row = 0, column = 0;
@@ -49,36 +53,35 @@ Sudoku::Sudoku(int level) {
 
     // randomize basic sudoku
     randomize_sudoku();
-    make_blank(level);
-}
-
-bool is_same_group(int first, int second) {
-    return (first % 3 * 3) <= second && second <= (first % 3 * 3 + 2);
+    //make_blank(level);
 }
 
 void Sudoku::randomize_sudoku() {
-    int count = random(150) + 30;
+    int count = random(1500) + 600;
     int first, second;
     for (int t = 0; t < count; t++) {
         first = random() - 1;
         second = random() - 1;
+        
         if (first == second)
             continue;
 
         int rand = random(5);
         switch (rand) {
         case ROW_LINE:
-            if(!is_same_group) break;
-            swap_line(first, second, ROW_LINE);
+            if(is_same_group(first, second))
+                swap_line(first, second, ROW_LINE);
             break;
         case COL_LINE:
-            if(!is_same_group) break;
-            swap_line(first, second, COL_LINE);
+            if(is_same_group(first, second))  
+                swap_line(first, second, COL_LINE);
             break;
         case ROW_GROUP:
+            if(is_same_group(first, second)) break;
             swap_group(first % 3, second % 3, ROW_GROUP);
             break;
         case COL_GROUP:
+            if(is_same_group(first, second)) break;
             swap_group(first % 3, second % 3, COL_GROUP);
             break;
         case NUM:
@@ -384,7 +387,7 @@ void Sudoku::swap_line(int first, int second, int flag) {
 }
 
 void Sudoku::swap_group(int first, int second, int flag) {
-    flag += 2; // ROW_LINE -> ROW_GROUP | COL_LINE -> COL_GROUP
+    flag -= 2;
     for (int i = 0; i < 3; i++)
         swap_line(first * 3 + i, second * 3 + i, flag);
 }
