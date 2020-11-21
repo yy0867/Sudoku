@@ -3,6 +3,7 @@
 
 #include "getkey.hpp"
 #include <string>
+#include <unistd.h>
 
 #define N 9
 #define MOVE 2
