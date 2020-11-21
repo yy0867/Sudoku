@@ -53,7 +53,7 @@ Sudoku::Sudoku(int level) {
 
     // randomize basic sudoku
     randomize_sudoku();
-    //make_blank(level);
+    make_blank(level);
 }
 
 void Sudoku::randomize_sudoku() {
