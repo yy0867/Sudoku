@@ -22,10 +22,10 @@ int main() {
     Sudoku sud;
     sud.printBoard();
     pid_t pid = 0;
-    int time = 100;
+    double time = 5;
 
     if (pid = fork()) {
-        measure_time(time);
+        measure_time(getpid(), time);
     }
 
     while (1) {
@@ -38,6 +38,6 @@ void signalHandler(int signum) {
     if (signum == SIGINT) {
         system("clear");
         cout << "Exit!" << endl;
-        exit(1);
+        exit(1); // change exit to UI
     }
 }
