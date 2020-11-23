@@ -22,7 +22,7 @@ int main() {
     Sudoku sud;
     sud.printBoard();
     pid_t pid = 0;
-    double time = 5;
+    double time = 100;
 
     if (pid = fork()) {
         measure_time(getpid(), time);
