@@ -7,6 +7,7 @@
 using namespace std;
 
 int main() {
+    //random setting
     srand(time(NULL));
     system("clear");
 
