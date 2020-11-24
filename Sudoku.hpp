@@ -9,8 +9,8 @@
 #define FRAME_INTERVAR 4
 #define ROW_FRAME_INTERVAR 3
 #define COLUMN_FRAME_INTERVAR 3
-#define X_PADDING 5
-#define Y_PADDING 3
+#define X_PADDING 15
+#define Y_PADDING 8
 
 /*#define COLOR_DEFAULT 0
 #define COLOR_BLACK 40
@@ -57,9 +57,5 @@ class Sudoku {
   private:
     int x, y;
     int row, column;
-<<<<<<< HEAD
-=======
-
->>>>>>> More optimize board, number printing
     bool origin[N][N];
 };
