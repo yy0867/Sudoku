@@ -1,4 +1,9 @@
+#ifndef __SUDOKU_HPP__
+#define __SUDOKU_HPP__
+
+#include "getkey.hpp"
 #include <string>
+#include <unistd.h>
 
 #define N 9
 #define MOVE 2
@@ -12,6 +17,7 @@
 #define X_PADDING 15
 #define Y_PADDING 8
 
+enum FLAG { ROW_LINE = 1, COL_LINE, ROW_GROUP, COL_GROUP, NUM };
 /*#define COLOR_DEFAULT 0
 #define COLOR_BLACK 40
 #define COLOR_RED 41     // Z
@@ -31,6 +37,8 @@ class Sudoku {
     void set_sudoku(const int row, const int col, const int num) {
         sudoku[row][col] = num;
     }
+    void randomize_sudoku();
+    void make_blank(int level);
     int random(const int n = N); // random() -> 1 ~ 9, random(n) -> 1 ~ n
     bool value_possible(const int row, const int col, const int num) const;
     bool remove(const int row, const int col);
@@ -54,8 +62,25 @@ class Sudoku {
     bool isFrameCursor(const int new_x, const int new_y) const;
     int sudoku[N][N];
 
+    // first & second must be in the same group [1, 2, 3 | 4, 5, 6 | 7, 8, 9]
+    // flag -> ROW_LINE / COL_LINE
+    void swap_line(int first, int second, int flag);
+
+    // first, second = [0, 1, 2]
+    // flag -> ROW_GROUP / COL_GROUP
+    void swap_group(int first, int second, int flag);
+
+    // first & second must not be same
+    void swap_number(int first, int second);
+
   private:
     int x, y;
     int row, column;
     bool origin[N][N];
 };
+
+extern void gotoxy(int x, int y);
+extern bool is_digit(int key);
+extern bool out_of_bound(const int row, const int column, const int num = 3);
+
+#endif
