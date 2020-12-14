@@ -1,5 +1,6 @@
-#include "Sudoku.hpp"
-#include "timeattack.hpp"
+#include "Sudoku.cpp"
+#include "timeattack.cpp"
+#include "getkey.cpp"
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
