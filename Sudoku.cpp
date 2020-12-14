@@ -1,4 +1,5 @@
 ﻿#include "Sudoku.hpp"
+#include "string"
 //#include "getkey.hpp"
 
 #define DEFAULT_FONT_COLOR 32
@@ -166,6 +167,33 @@ bool Sudoku::remove(const int row, const int column) {
     return true;
 }
 
+void Sudoku::printFrame(int x, int y, int width, int height, string multiColor, string rowEdge, string columnEdge) const {
+    int xOffset, yOffset;
+    printColorCursor(X_PADDING + x, y + Y_PADDING, multiColor, "┏");
+    for (xOffset = 1; xOffset <= width; xOffset++){
+        printColorCursor(X_PADDING + x + xOffset, y + Y_PADDING, multiColor, rowEdge);
+    }
+    printColorCursor(X_PADDING + x + xOffset, y + Y_PADDING, multiColor, "┓");
+    for (yOffset = 1; yOffset <= height; yOffset++){
+        printColorCursor(X_PADDING + x, Y_PADDING + y + yOffset, multiColor, columnEdge);
+        printColorCursor(X_PADDING + x + xOffset, Y_PADDING + y + yOffset, multiColor, columnEdge);
+    }
+    printColorCursor(X_PADDING + x, Y_PADDING + y + yOffset, multiColor, "┗");
+    for (xOffset = 1; xOffset <= width; xOffset++){
+        printColorCursor(X_PADDING + x + xOffset, Y_PADDING + y + yOffset, multiColor, rowEdge);
+    }
+    printColorCursor(X_PADDING + x + xOffset, Y_PADDING + y + yOffset, multiColor, "┛");
+}
+
+void Sudoku::printFrame(int x, int y, int width, int height, int color) const {
+    printFrame(x, y, width, height, to_string(color),  "━", "┃");
+}
+
+void Sudoku::printFrameCursor(int x, int y, int width, int height, int color) const {
+    string blink = "5;"; //
+    printFrame(x, y, width, height, blink.append(to_string(color)), " ", " ");
+}
+
 void Sudoku::print_form() const {
     for (int y = 0; y < FORM_SIZE; y++) {
         if (y % 4 == 0) {
@@ -320,11 +348,15 @@ char *Sudoku::convertNumberToFullChar(int num) const { // input 0 ~ 9 integer
     return result;
 }
 
-/*
+void Sudoku::printColorCursor(int x, int y, string multiColor, const string str) const {
+    gotoxy(x, y);
+    cout << "\033[" << multiColor << "m" << str << "\033[0m";
+}
+
 void Sudoku::printColorCursor(int x, int y, int color, const string str) const {
     gotoxy(x, y);
     cout << "\033[" << color << "m" << str << "\033[0m";
-}*/
+}
 
 void Sudoku::printColorCursor(int x, int y, int color, const char *str) const {
     gotoxy(x, y);

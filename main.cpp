@@ -14,7 +14,7 @@ bool exit_flag = false;
 
 void signalHandler(int signum);
 
-int main() {
+int main2() {
     srand(time(NULL));
     system("clear");
 
@@ -33,6 +33,14 @@ int main() {
         sud.moveCursor();
     }
     return 0;
+}
+
+int main(){
+    Sudoku s;
+    int t = system("clear");
+    s.printFrame(0, 0, 15, 3, 94);
+    s.printFrameCursor(-1, -1, 17, 5, 94);
+    cout << endl;
 }
 
 void signalHandler(int signum) {

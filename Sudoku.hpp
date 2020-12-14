@@ -46,11 +46,14 @@ class Sudoku {
     void print() const;
     void printBoard() const;
     void printCursor() const;
+    void printColorCursor(int x, int y, string multiColor, const string str) const;
     void printColorCursor(int x, int y, int color, const string str) const;
     void printColorCursor(int x, int y, int color, const char str) const;
     void printColorCursor(int x, int y, int color, const char *str) const;
     void printColorCursor(int x, int y, int color, const int str) const;
     char *convertNumberToFullChar(int num) const;
+    void printFrame(int x, int y, int width, int height, int color) const;
+    void printFrameCursor(int x, int y, int width, int height, int color) const;
 
     bool cursor_possible(const int new_x, const int new_y) const;
     bool isCursorPossible(const int new_x, const int new_y) const;
@@ -77,6 +80,7 @@ class Sudoku {
     int x, y;
     int row, column;
     bool origin[N][N];
+    void printFrame(int x, int y, int width, int height, string multiColor, string rowEdge, string columnEdge) const;
 };
 
 extern void gotoxy(int x, int y);
