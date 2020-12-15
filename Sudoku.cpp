@@ -29,9 +29,7 @@ bool out_of_bound(const int row, const int column, const int num) {
     return false;
 }
 
-bool is_same_group(int first, int second) {
-    return (first / 3 == second / 3);
-}
+bool is_same_group(int first, int second) { return (first / 3 == second / 3); }
 
 Sudoku::Sudoku(int level) {
     x = 1 + X_PADDING, y = 1 + Y_PADDING;
@@ -76,19 +74,21 @@ void Sudoku::randomize_sudoku() {
         int rand = random(5);
         switch (rand) {
         case ROW_LINE:
-            if(is_same_group(first, second))
+            if (is_same_group(first, second))
                 swap_line(first, second, ROW_LINE);
             break;
         case COL_LINE:
-            if(is_same_group(first, second))
+            if (is_same_group(first, second))
                 swap_line(first, second, COL_LINE);
             break;
         case ROW_GROUP:
-            if(is_same_group(first, second)) break;
+            if (is_same_group(first, second))
+                break;
             swap_group(first % 3, second % 3, ROW_GROUP);
             break;
         case COL_GROUP:
-            if(is_same_group(first, second)) break;
+            if (is_same_group(first, second))
+                break;
             swap_group(first % 3, second % 3, COL_GROUP);
             break;
         case NUM:
