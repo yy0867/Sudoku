@@ -17,3 +17,4 @@ void measure_time(pid_t pid, double time) {
     cout << "Time Over!" << endl;
 
     kill(pid, SIGINT);
+}
