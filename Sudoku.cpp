@@ -345,26 +345,10 @@ void Sudoku::moveCursor(int key) {
             x += 3;
             column++;
         } else {
-            printFrameCursor(29, -6, 20, 3, 94);
-            is_inMenu = true;
-            // int next_get_key = get_key();
-            // int count = 0;
-            // while (next_get_key != KEY_LEFT) {
-            //     int key = get_key();
-            //     removeFrame(29, -1, 20, 3);
-            //     if (next_get_key == KEY_UP) {
-            //         if(count!=0)
-            //             count--;
-            //     } else if (next_get_key == KEY_DOWN) {
-            //         if(count!=3)
-            //             count++;
-            //     }
-
-            //     printFrameCursor(29, -6, 20, 3, 94);
-            //     printFrameCursor(29, -1, 20, 3, 94);
-            //     printFrameCursor(29, 4, 20, 3, 94);
-            //     printFrameCursor(29, 9, 20, 3, 94);
-            // }
+            if (is_inMenu == false) {
+                printFrameCursor(29, -6, 20, 3, 94);
+                is_inMenu = true;
+            }
         }
         break;
     case KEY_LEFT:
