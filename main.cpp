@@ -24,7 +24,7 @@ int main() {
 
     signal(SIGINT, signalHandler);
     Sudoku sud;
-    mainTitle();
+    printTitle();
     getch();
     system("clear");
 

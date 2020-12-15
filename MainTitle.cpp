@@ -10,9 +10,9 @@ using namespace std;
 void printTitle(int xPadding, int yPadding, const string path);
 int getLargestWidth(string path);
 void printBlinkingComment(int x, int y, int color, const string comment);
-void mainTitle();
+void printTitle();
 
-void mainTitle() {
+void printTitle() {
     string path = "./Artworks/MainTitle.txt";
     string ment = "Press any key";
     struct winsize console;

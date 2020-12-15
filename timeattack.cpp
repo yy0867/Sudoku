@@ -9,6 +9,7 @@ void measure_time(pid_t pid, double time) {
     int count = 0;
     for (double i = time; i >= 0; i -= 0.01) {
         gotoxy(TIME_ROW, TIME_COL);
+
         cout << i << "..." << flush;
 
         fflush(stdout);
