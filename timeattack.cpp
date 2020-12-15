@@ -1,7 +1,7 @@
 #include "timeattack.hpp"
 
-#define TIME_ROW 35
-#define TIME_COL 3
+#define TIME_ROW 47
+#define TIME_COL 4
 
 using namespace std;
 
@@ -9,8 +9,7 @@ void measure_time(pid_t pid, double time) {
     int count = 0;
     for (double i = time; i >= 0; i -= 0.01) {
         gotoxy(TIME_ROW, TIME_COL);
-
-        cout << i << "..." << flush;
+        cout << "TIME : " << i << "..." << flush;
 
         fflush(stdout);
         usleep(10000); // 0.01sec

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(){
+int main() {
     int count = 111;
     system("clear");
     for (int i = 0; i < count; i++) {
