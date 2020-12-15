@@ -21,6 +21,8 @@ bool exit_flag = false;
 
 void signalHandler(int signum);
 void printFrameInGameMenu();
+void MoveCursorToInGameMenu();
+void printFrameCursorInGameMenu();
 
 int main() {
     // random setting
@@ -48,6 +50,7 @@ int main() {
     } else {
         while (1) {
             sud.moveCursor();
+            // MoveCursorToInGameMenu();
         }
     }
     return 0;
@@ -74,9 +77,23 @@ void signalHandler(int signum) {
 }
 
 void printFrameInGameMenu() {
-    printFrame(30, -5, 18, 1, 94); // Time box
-    printFrame(30, 0, 18, 1, 94);  // reset function box
-    printFrame(30, 5, 18, 1, 94);  // save function box
-    printFrame(30, 10, 18, 1, 94); // return to menu function box
-    printFrameCursor(29, -1, 20, 3, 94);
+    printFrame(30, -5, 18, 1, 94);         // Time box
+    printFrame(30, 0, 18, 1, 94, "RESET"); // reset function box
+    printFrame(30, 5, 18, 1, 94, "SAVE");  // save function box
+    printFrame(30, 10, 18, 1, 94, "MENU"); // return to menu function box
 }
+
+// void MoveCursorToInGameMenu() {
+//     if (get_key() == KEY_RIGHT) {
+//         printFrameCursorInGameMenu();
+//     }
+// }
+
+// void printFrameCursorInGameMenu() {
+//     printFrameCursor(29, -1, 20, 3, 94);
+//     while (1) {
+//         int getkey = get_key();
+//         if (getkey==KEY_UP)
+//             printFrameCursor(29, -1, 20, 3, 94);
+//     }
+// }

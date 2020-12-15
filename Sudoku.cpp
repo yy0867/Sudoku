@@ -5,6 +5,9 @@
 
 using namespace std;
 
+bool is_inMenu = false;
+int current_menu = 0;
+
 /*//Replace to ConsoleCursor
 void gotoxy(int x, int y) {
     printf("\033[%d;%df", y, x);
@@ -165,31 +168,35 @@ bool Sudoku::remove(const int row, const int column) {
 }
 
 /* Replace to Frame
-void Sudoku::printFrame(int x, int y, int width, int height, string multiColor, string rowEdge, string columnEdge) const {
-    int xOffset, yOffset;
+void Sudoku::printFrame(int x, int y, int width, int height, string multiColor,
+string rowEdge, string columnEdge) const { int xOffset, yOffset;
     printColorCursor(X_PADDING + x, y + Y_PADDING, multiColor, "┏");
     for (xOffset = 1; xOffset <= width; xOffset++){
-        printColorCursor(X_PADDING + x + xOffset, y + Y_PADDING, multiColor, rowEdge);
+        printColorCursor(X_PADDING + x + xOffset, y + Y_PADDING, multiColor,
+rowEdge);
     }
     printColorCursor(X_PADDING + x + xOffset, y + Y_PADDING, multiColor, "┓");
     for (yOffset = 1; yOffset <= height; yOffset++){
-        printColorCursor(X_PADDING + x, Y_PADDING + y + yOffset, multiColor, columnEdge);
-        printColorCursor(X_PADDING + x + xOffset, Y_PADDING + y + yOffset, multiColor, columnEdge);
+        printColorCursor(X_PADDING + x, Y_PADDING + y + yOffset, multiColor,
+columnEdge); printColorCursor(X_PADDING + x + xOffset, Y_PADDING + y + yOffset,
+multiColor, columnEdge);
     }
     printColorCursor(X_PADDING + x, Y_PADDING + y + yOffset, multiColor, "┗");
     for (xOffset = 1; xOffset <= width; xOffset++){
-        printColorCursor(X_PADDING + x + xOffset, Y_PADDING + y + yOffset, multiColor, rowEdge);
+        printColorCursor(X_PADDING + x + xOffset, Y_PADDING + y + yOffset,
+multiColor, rowEdge);
     }
-    printColorCursor(X_PADDING + x + xOffset, Y_PADDING + y + yOffset, multiColor, "┛");
+    printColorCursor(X_PADDING + x + xOffset, Y_PADDING + y + yOffset,
+multiColor, "┛");
 }
 
 void Sudoku::printFrame(int x, int y, int width, int height, int color) const {
     printFrame(x, y, width, height, to_string(color),  "━", "┃");
 }
 
-void Sudoku::printFrameCursor(int x, int y, int width, int height, int color) const {
-    string blink = "5;"; //blink option
-    printFrame(x, y, width, height, blink.append(to_string(color)), " ", " ");
+void Sudoku::printFrameCursor(int x, int y, int width, int height, int color)
+const { string blink = "5;"; //blink option printFrame(x, y, width, height,
+blink.append(to_string(color)), " ", " ");
 }
 */
 void Sudoku::print_form() const {
@@ -321,15 +328,41 @@ void Sudoku::moveCursor(int key) {
         } else if (isCursorPossible(x + 3, y)) {
             x += 3;
             column++;
+        } else {
+            printFrameCursor(29, -6, 20, 3, 94);
+            is_inMenu = true;
+            // int next_get_key = get_key();
+            // int count = 0;
+            // while (next_get_key != KEY_LEFT) {
+            //     int key = get_key();
+            //     removeFrame(29, -1, 20, 3);
+            //     if (next_get_key == KEY_UP) {
+            //         if(count!=0)
+            //             count--;
+            //     } else if (next_get_key == KEY_DOWN) {
+            //         if(count!=3)
+            //             count++;
+            //     }
+
+            //     printFrameCursor(29, -6, 20, 3, 94);
+            //     printFrameCursor(29, -1, 20, 3, 94);
+            //     printFrameCursor(29, 4, 20, 3, 94);
+            //     printFrameCursor(29, 9, 20, 3, 94);
+            // }
         }
         break;
     case KEY_LEFT:
-        if (isCursorPossible(x - 2, y)) {
-            x -= 2;
-            column--;
-        } else if (isCursorPossible(x - 3, y)) {
-            x -= 3;
-            column--;
+        if (is_inMenu == true) {
+            removeFrame(29, -6 + current_menu * 5, 20, 3);
+            is_inMenu = false;
+        } else {
+            if (isCursorPossible(x - 2, y)) {
+                x -= 2;
+                column--;
+            } else if (isCursorPossible(x - 3, y)) {
+                x -= 3;
+                column--;
+            }
         }
         break;
     case KEY_DELETE:
@@ -347,7 +380,6 @@ char *Sudoku::convertNumberToFullChar(int num) const { // input 0 ~ 9 integer
 }
 */
 
-
 string Sudoku::convertNumberToFullChar(int num) const { // input 0 ~ 9 integer
     char fullNum[] = "０";
     fullNum[2] += num;
@@ -357,9 +389,9 @@ string Sudoku::convertNumberToFullChar(int num) const { // input 0 ~ 9 integer
 
 // Replace to ConsoleCursor
 /*
-void Sudoku::printColorCursor(int x, int y, string multiColor, const string str) const {
-    gotoxy(x, y);
-    cout << "\033[" << multiColor << "m" << str << "\033[0m" << flush;
+void Sudoku::printColorCursor(int x, int y, string multiColor, const string str)
+const { gotoxy(x, y); cout << "\033[" << multiColor << "m" << str << "\033[0m"
+<< flush;
 }
 
 void Sudoku::printColorCursor(int x, int y, int color, const string str) const {
