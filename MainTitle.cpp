@@ -3,16 +3,15 @@
 #include <unistd.h>
 #include <fstream>
 #include <iostream>
-#include "Sudoku.hpp"
+#include "ConsoleCursor.hpp"
 
 using namespace std;
 
 void printTitle(int xPadding, int yPadding, const string path);
 int getLargestWidth(string path);
 void printBlinkingComment(int x, int y, int color, const string comment);
-void gotoxy(int x, int y);
 
-int main() {
+int mainTitle() {
     string path = "./Artworks/MainTitle.txt";
     string ment = "Press any key";
     struct winsize console;
@@ -62,9 +61,4 @@ void printBlinkingComment(int x, int y, int color, const string comment){
     printf("%c[5;%dm", 27, color);
     cout << comment;
     printf("%c[0m\n", 27);
-}
-
-void gotoxy(int x, int y) {
-    printf("\033[%d;%df", y, x);
-    fflush(stdout);
 }

@@ -8,5 +8,6 @@ int main(int argc, char **argv) {
 
     printf("lines %d\n", w.ws_row);
     printf("columns %d\n", w.ws_col);
+    printf("\033[6n;mR\n");
     return 0;  // make sure your main returns int
 }
