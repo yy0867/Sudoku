@@ -304,21 +304,37 @@ void Sudoku::moveCursor(int key) {
         printColorCursor(x, y, DEFAULT_FONT_COLOR, "  ");
     switch (key) {
     case KEY_UP:
-        if (isCursorPossible(x, y - 1)) {
-            y -= 1;
-            row--;
-        } else if (isCursorPossible(x, y - 2)) {
-            y -= 2;
-            row--;
+        if (is_inMenu == true) {
+            if (current_menu != 0) {
+                removeFrame(29, 9 - (3 - current_menu) * 5, 20, 3);
+                printFrameCursor(29, 9 - (4 - current_menu) * 5, 20, 3, 94);
+                current_menu--;
+            }
+        } else {
+            if (isCursorPossible(x, y - 1)) {
+                y -= 1;
+                row--;
+            } else if (isCursorPossible(x, y - 2)) {
+                y -= 2;
+                row--;
+            }
         }
         break;
     case KEY_DOWN:
-        if (isCursorPossible(x, y + 1)) {
-            y += 1;
-            row++;
-        } else if (isCursorPossible(x, y + 2)) {
-            y += 2;
-            row++;
+        if (is_inMenu == true) {
+            if (current_menu != 3) {
+                removeFrame(29, -6 + current_menu * 5, 20, 3);
+                printFrameCursor(29, -6 + (1 + current_menu) * 5, 20, 3, 94);
+                current_menu++;
+            }
+        } else {
+            if (isCursorPossible(x, y + 1)) {
+                y += 1;
+                row++;
+            } else if (isCursorPossible(x, y + 2)) {
+                y += 2;
+                row++;
+            }
         }
         break;
     case KEY_RIGHT:
@@ -372,10 +388,8 @@ void Sudoku::moveCursor(int key) {
 }
 
 /* Alternated
-char *Sudoku::convertNumberToFullChar(int num) const { // input 0 ~ 9 integer
-    char fullNum[] = "０";
-    fullNum[2] += num;
-    char *result = fullNum;
+char *Sudoku::convertNumberToFullChar(int num) const { // input 0 ~ 9
+integer char fullNum[] = "０"; fullNum[2] += num; char *result = fullNum;
     return result;
 }
 */
@@ -389,34 +403,32 @@ string Sudoku::convertNumberToFullChar(int num) const { // input 0 ~ 9 integer
 
 // Replace to ConsoleCursor
 /*
-void Sudoku::printColorCursor(int x, int y, string multiColor, const string str)
-const { gotoxy(x, y); cout << "\033[" << multiColor << "m" << str << "\033[0m"
+void Sudoku::printColorCursor(int x, int y, string multiColor, const string
+str) const { gotoxy(x, y); cout << "\033[" << multiColor << "m" << str <<
+"\033[0m"
 << flush;
 }
 
-void Sudoku::printColorCursor(int x, int y, int color, const string str) const {
-    gotoxy(x, y);
-    cout << "\033[" << color << "m" << str << "\033[0m" << flush;
+void Sudoku::printColorCursor(int x, int y, int color, const string str)
+const { gotoxy(x, y); cout << "\033[" << color << "m" << str << "\033[0m" <<
+flush;
 }
 
 
-void Sudoku::printColorCursor(int x, int y, int color, const char *str) const {
-    gotoxy(x, y);
-    const char *temp = str;
-    printf("\033[%dm%s\033[0m", color, temp);
+void Sudoku::printColorCursor(int x, int y, int color, const char *str)
+const { gotoxy(x, y); const char *temp = str; printf("\033[%dm%s\033[0m",
+color, temp);
 }
 
 
 /*
-void Sudoku::printColorCursor(int x, int y, int color, const char str) const {
-    gotoxy(x, y);
-    printf("\033[%dm%c \033[0m", color, str);
+void Sudoku::printColorCursor(int x, int y, int color, const char str) const
+{ gotoxy(x, y); printf("\033[%dm%c \033[0m", color, str);
 }
 
 
-void Sudoku::printColorCursor(int x, int y, int color, const int str) const {
-    gotoxy(x, y);
-    printf("\033[%dm%d \033[0m", color, str);
+void Sudoku::printColorCursor(int x, int y, int color, const int str) const
+{ gotoxy(x, y); printf("\033[%dm%d \033[0m", color, str);
 }
 */
 
