@@ -47,6 +47,5 @@ int get_key() {
     // delete
     if (ch == 100)
         return KEY_DELETE;
-
     return ch;
 }
