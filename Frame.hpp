@@ -11,6 +11,6 @@ void printFrame(int x, int y, int width, int height, string multiColor, string r
 void printFrame(int x, int y, int width, int height, int color);
 void printFrame(int x, int y, int width, int height, int color, string label);
 void printFrameCursor(int x, int y, int width, int height, int color);
-void removeFrameCursor(int x, int y, int width, int height);
+void removeFrame(int x, int y, int width, int height);
 
 #endif

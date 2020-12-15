@@ -10,6 +10,7 @@
 #define KEY_LEFT 68
 #define KEY_NUM 48
 #define KEY_DELETE 100
+#define KEY_ENTER 10
 
 // get 2 bytes of temp value before real key value
 #define KEY_ESCAPE1 27

@@ -4,6 +4,8 @@
 #include "Sudoku.cpp"
 #include "getkey.cpp"
 #include "timeattack.cpp"
+#include "MenuFrame.cpp"
+#include "MainMenu.cpp"
 
 #include <cstdlib>
 #include <ctime>
@@ -34,33 +36,45 @@ int main() {
     getch();
     system("clear");
 
-    sud.printBoard();
-    pid_t pid = 0;
-    double time = 100;
-    printFrameInGameMenu();
+    switch (printMainMenu()){
+    case SelectedMenu::NEW_START:{
+        system("clear");
+        sud.printBoard();
+        pid_t pid = 0;
+        double time = 100;
+        printFrameInGameMenu();
 
-    pid = fork(); // make child process
-    if (pid == 0) {
-        measure_time(getpid(), time);
-        if (get_key() == p_key) {
-            kill(pid, SIGTSTP);
+        pid = fork(); // make child process
+        if (pid == 0) {
+            measure_time(getpid(), time);
+            if (get_key() == p_key) {
+                kill(pid, SIGTSTP);
+            }
+        } else {
+            while (1) {
+                sud.moveCursor();
+            }
         }
-    } else {
-        while (1) {
-            sud.moveCursor();
-        }
+        break;
     }
+    case SelectedMenu::LOAD_SAVE:
+        cout << endl;
+        break;
+
+    case SelectedMenu::EXIT:
+        cout << endl;
+        break;
+    }
+
     return 0;
 }
 
 int main2() {
     int t = system("clear");
-    printFrame(0, 0, 20, 3, 94, "fuck you");
-    printFrameCursor(-1, -1, 22, 5, 94);
-    get_key();
-    removeFrame(-1, -1, 22, 5);
-    cout << endl;
+
+    //cout << printMainMenu() << endl;
 }
+
 
 void signalHandler(int signum) {
     if (signum == SIGINT) {

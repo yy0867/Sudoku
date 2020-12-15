@@ -20,6 +20,7 @@ void printTitle() {
 
     printTitle(((console.ws_col) - getLargestWidth(path))/2, 3, path);// middle sorting
     printBlinkingComment(((console.ws_col) - ment.length()) / 2, 15, 37, ment);
+    gotoxy(1000, 1000);
 }
 
 void printTitle(int xPadding, int yPadding, const string path){ //It has screen clear serv

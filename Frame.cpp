@@ -30,8 +30,8 @@ void printFrame(int x, int y, int width, int height, int color) {
 }
 
 void printFrame(int x, int y, int width, int height, int color, string label){
-    printFrame(x, y, width, height, color);
     printColorCursor(X_PADDING + x + width/2 - (label.size()/2) + 1, Y_PADDING + y + ceil((double)(height/2)) + 1, color, label); // +1 cause frame
+    printFrame(x, y, width, height, color);
 }
 
 void printFrameCursor(int x, int y, int width, int height, int color) {
