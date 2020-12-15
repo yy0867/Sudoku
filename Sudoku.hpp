@@ -46,11 +46,20 @@ class Sudoku {
     void print() const;
     void printBoard() const;
     void printCursor() const;
+    /* //Replace to ConsoleCursor
+    void printColorCursor(int x, int y, string multiColor, const string str) const;
     void printColorCursor(int x, int y, int color, const string str) const;
-    void printColorCursor(int x, int y, int color, const char str) const;
+    //void printColorCursor(int x, int y, int color, const char str) const;
     void printColorCursor(int x, int y, int color, const char *str) const;
     void printColorCursor(int x, int y, int color, const int str) const;
-    char *convertNumberToFullChar(int num) const;
+    */
+    //char *convertNumberToFullChar(int num) const; // Alternated
+    string convertNumberToFullChar(int num) const;
+
+    /*//Replace to Frame
+    void printFrame(int x, int y, int width, int height, int color) const;
+    void printFrameCursor(int x, int y, int width, int height, int color) const;
+    */
 
     bool cursor_possible(const int new_x, const int new_y) const;
     bool isCursorPossible(const int new_x, const int new_y) const;
@@ -77,9 +86,10 @@ class Sudoku {
     int x, y;
     int row, column;
     bool origin[N][N];
+    //void printFrame(int x, int y, int width, int height, string multiColor, string rowEdge, string columnEdge) const;
 };
 
-extern void gotoxy(int x, int y);
+//extern void gotoxy(int x, int y); //Replace to ConsoleCursor
 extern bool is_digit(int key);
 extern bool out_of_bound(const int row, const int column, const int num = 3);
 

@@ -1,6 +1,10 @@
 #include "Sudoku.cpp"
 #include "timeattack.cpp"
 #include "getkey.cpp"
+#include "ConsoleCursor.cpp"
+#include "Frame.cpp"
+#include "MainTitle.cpp"
+
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
@@ -23,6 +27,10 @@ int main() {
     signal(SIGINT, signalHandler);
     signal(SIGTSTP, signalHandler);
     Sudoku sud;
+    mainTitle();
+    getch();
+    system("clear");
+
     sud.printBoard();
     pid_t pid = 0;
     double time = 100;
@@ -38,6 +46,13 @@ int main() {
         sud.moveCursor();
     }
     return 0;
+}
+
+int main2(){
+    int t = system("clear");
+    printFrame(0, 0, 15, 3, 94);
+    printFrameCursor(-1, -1, 17, 5, 94);
+    cout << endl;
 }
 
 void signalHandler(int signum) {

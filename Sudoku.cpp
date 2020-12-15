@@ -1,5 +1,7 @@
 ﻿#include "Sudoku.hpp"
-//#include "getkey.hpp"
+#include "ConsoleCursor.hpp"
+#include "Frame.hpp"
+#include "string"
 
 #define DEFAULT_FONT_COLOR 32
 #define CUSTOM_FONT_COLOR 37
@@ -9,10 +11,12 @@
 
 using namespace std;
 
+/*//Replace to ConsoleCursor
 void gotoxy(int x, int y) {
     printf("\033[%d;%df", y, x);
     fflush(stdout);
 }
+*/
 
 bool is_digit(int key) { return (1 <= key - KEY_NUM && key - KEY_NUM <= 9); }
 
@@ -166,6 +170,34 @@ bool Sudoku::remove(const int row, const int column) {
     return true;
 }
 
+/* Replace to Frame
+void Sudoku::printFrame(int x, int y, int width, int height, string multiColor, string rowEdge, string columnEdge) const {
+    int xOffset, yOffset;
+    printColorCursor(X_PADDING + x, y + Y_PADDING, multiColor, "┏");
+    for (xOffset = 1; xOffset <= width; xOffset++){
+        printColorCursor(X_PADDING + x + xOffset, y + Y_PADDING, multiColor, rowEdge);
+    }
+    printColorCursor(X_PADDING + x + xOffset, y + Y_PADDING, multiColor, "┓");
+    for (yOffset = 1; yOffset <= height; yOffset++){
+        printColorCursor(X_PADDING + x, Y_PADDING + y + yOffset, multiColor, columnEdge);
+        printColorCursor(X_PADDING + x + xOffset, Y_PADDING + y + yOffset, multiColor, columnEdge);
+    }
+    printColorCursor(X_PADDING + x, Y_PADDING + y + yOffset, multiColor, "┗");
+    for (xOffset = 1; xOffset <= width; xOffset++){
+        printColorCursor(X_PADDING + x + xOffset, Y_PADDING + y + yOffset, multiColor, rowEdge);
+    }
+    printColorCursor(X_PADDING + x + xOffset, Y_PADDING + y + yOffset, multiColor, "┛");
+}
+
+void Sudoku::printFrame(int x, int y, int width, int height, int color) const {
+    printFrame(x, y, width, height, to_string(color),  "━", "┃");
+}
+
+void Sudoku::printFrameCursor(int x, int y, int width, int height, int color) const {
+    string blink = "5;"; //blink option
+    printFrame(x, y, width, height, blink.append(to_string(color)), " ", " ");
+}
+*/
 void Sudoku::print_form() const {
     for (int y = 0; y < FORM_SIZE; y++) {
         if (y % 4 == 0) {
@@ -248,15 +280,14 @@ void Sudoku::moveCursor(int key) {
     if (is_digit(key)) {
         if (!origin[row][column]) {
             if (!value_possible(row, column, key - KEY_NUM)) {
-                printColorCursor(X_PADDING, 14 + Y_PADDING,
-                                 DEFAULT_FONT_COLOR + X_PADDING,
+                printColorCursor(X_PADDING, 14 + Y_PADDING, DEFAULT_FONT_COLOR,
                                  "Can't insert number!");
             } else
                 sudoku[row][column] = key - KEY_NUM;
         }
         return;
     }
-    printColorCursor(X_PADDING, 14 + Y_PADDING, DEFAULT_FONT_COLOR + X_PADDING,
+    printColorCursor(X_PADDING, 14 + Y_PADDING, DEFAULT_FONT_COLOR,
                      "                     ");
     int fontColor;
     if (origin[row][column]) {
@@ -313,18 +344,35 @@ void Sudoku::moveCursor(int key) {
     }
 }
 
+/* Alternated
 char *Sudoku::convertNumberToFullChar(int num) const { // input 0 ~ 9 integer
     char fullNum[] = "０";
     fullNum[2] += num;
     char *result = fullNum;
     return result;
 }
+*/
 
+
+string Sudoku::convertNumberToFullChar(int num) const { // input 0 ~ 9 integer
+    char fullNum[] = "０";
+    fullNum[2] += num;
+    string result = fullNum;
+    return result;
+}
+
+// Replace to ConsoleCursor
 /*
+void Sudoku::printColorCursor(int x, int y, string multiColor, const string str) const {
+    gotoxy(x, y);
+    cout << "\033[" << multiColor << "m" << str << "\033[0m" << flush;
+}
+
 void Sudoku::printColorCursor(int x, int y, int color, const string str) const {
     gotoxy(x, y);
-    cout << "\033[" << color << "m" << str << "\033[0m";
-}*/
+    cout << "\033[" << color << "m" << str << "\033[0m" << flush;
+}
+
 
 void Sudoku::printColorCursor(int x, int y, int color, const char *str) const {
     gotoxy(x, y);
@@ -332,15 +380,19 @@ void Sudoku::printColorCursor(int x, int y, int color, const char *str) const {
     printf("\033[%dm%s\033[0m", color, temp);
 }
 
+
+/*
 void Sudoku::printColorCursor(int x, int y, int color, const char str) const {
     gotoxy(x, y);
     printf("\033[%dm%c \033[0m", color, str);
 }
 
+
 void Sudoku::printColorCursor(int x, int y, int color, const int str) const {
     gotoxy(x, y);
     printf("\033[%dm%d \033[0m", color, str);
 }
+*/
 
 bool Sudoku::isCursorPossible(const int xPos, const int yPos) const {
     return isInside(xPos, yPos) && isFrameCursor(xPos, yPos);
@@ -405,118 +457,3 @@ void Sudoku::swap_number(int first, int second) {
         }
     }
 }
-
-/*
-void Sudoku::print() const { // Alternated
-    gotoxy(1, 1);
-    print_form();
-    int row = 0, column = 0;
-    for (int i = 0; i < FORM_SIZE; i++) {
-        column = 0;
-        for (int j = 0; i % 4 != 0 && j < FORM_SIZE; j++) {
-            if (j % 4 != 0) {
-                // gotoxy(j * 2 + 1, i + 1);
-                if (sudoku[row][column]) {
-                    if (!origin[row][column]) {
-                        printColorCursor(j * 2 + 1, i + 1, 33,
-                                         (char)(sudoku[row][column] + 48));
-                        printf("\033[33m");
-                        cout << (char)(sudoku[row][column] + 48) << " ";
-                        printf("\033[0m");
-                    } else {
-                        printColorCursor(j * 2 + 1, i + 1, 34,
-                                         (char)(sudoku[row][column] + 48));
-                        /*printf("\033[34m");
-                        cout << (char)(sudoku[row][column] + 48) << " ";
-                        printf("\033[0m");
-                    }
-                }
-                column++;
-            }
-        }
-        if (i % 4 != 0)
-            row++;
-    }
-
-    gotoxy(1, 15);
-}
-*/
-
-/*
-bool Sudoku::cursor_possible(const int new_x,
-                             const int new_y) const { // Alternated
-    if ((new_x % 2 == 0 || new_x < 1 || new_x > 24 || (new_x - 1) % 8 == 0) ||
-        (new_y < 1 || new_y > 12 || (new_y - 1) % 4 == 0))
-        return false;
-    return true;
-}*/
-
-/*
-void Sudoku::cursor() { // Alternated
-    int num = sudoku[row][column];
-
-    gotoxy(x, y);
-    printf("\033[7m");
-    if (num)
-        cout << num;
-    printf("\033[0m");
-
-    int key = get_key();
-    gotoxy(1, 15);
-    cout << "                       ";
-
-    if (is_digit(key)) {
-        if (!origin[row][column]) {
-            if (!value_possible(row, column, key - KEY_NUM)) {
-                gotoxy(1, 15);
-                printf("\033[32m");
-                cout << "Can't insert number!" << endl;
-                printf("\033[0m");
-            } else
-                sudoku[row][column] = key - KEY_NUM;
-        }
-        return;
-    }
-
-    switch (key) {
-    case KEY_UP:
-        if (cursor_possible(x, y - 1)) {
-            y -= 1;
-            row--;
-        } else if (cursor_possible(x, y - 2)) {
-            y -= 2;
-            row--;
-        }
-        break;
-    case KEY_DOWN:
-        if (cursor_possible(x, y + 1)) {
-            y += 1;
-            row++;
-        } else if (cursor_possible(x, y + 2)) {
-            y += 2;
-            row++;
-        }
-        break;
-    case KEY_RIGHT:
-        if (cursor_possible(x + 2, y)) {
-            x += 2;
-            column++;
-        } else if (cursor_possible(x + 4, y)) {
-            x += 4;
-            column++;
-        }
-        break;
-    case KEY_LEFT:
-        if (cursor_possible(x - 2, y)) {
-            x -= 2;
-            column--;
-        } else if (cursor_possible(x - 4, y)) {
-            x -= 4;
-            column--;
-        }
-        break;
-    case KEY_DELETE:
-        remove(row, column);
-        break;
-    }
-}*/
