@@ -1,17 +1,18 @@
 #include <stdlib.h>
-#include <sys/ioctl.h>
 #include <unistd.h>
 #include <fstream>
 #include <iostream>
 #include "ConsoleCursor.hpp"
+#include <sys/ioctl.h>
 
 using namespace std;
 
 void printTitle(int xPadding, int yPadding, const string path);
 int getLargestWidth(string path);
 void printBlinkingComment(int x, int y, int color, const string comment);
+void mainTitle();
 
-int mainTitle() {
+void mainTitle() {
     string path = "./Artworks/MainTitle.txt";
     string ment = "Press any key";
     struct winsize console;
@@ -19,7 +20,6 @@ int mainTitle() {
 
     printTitle(((console.ws_col) - getLargestWidth(path))/2, 3, path);// middle sorting
     printBlinkingComment(((console.ws_col) - ment.length()) / 2, 15, 37, ment);
-    return 0;
 }
 
 void printTitle(int xPadding, int yPadding, const string path){ //It has screen clear serv
