@@ -14,15 +14,18 @@
 
 using namespace std;
 
+const int p_key = 112;
 bool exit_flag = false;
 
 void signalHandler(int signum);
 
 int main() {
+    //random setting
     srand(time(NULL));
     system("clear");
 
     signal(SIGINT, signalHandler);
+    signal(SIGTSTP, signalHandler);
     Sudoku sud;
     printTitle();
     getch();
@@ -34,8 +37,8 @@ int main() {
 
     if (pid = fork()) {
         measure_time(getpid(), time);
-        if (get_key() == 112) {
-            signal(SIGTSTP, signalHandler);
+        if (get_key() == p_key) {
+            kill(pid, SIGTSTP);
         }
     }
 
@@ -59,5 +62,6 @@ void signalHandler(int signum) {
         exit(1); // change exit to UI
     } else if (signum == SIGTSTP) {
         cout << "Pause! Push p button again to continue" << endl;
+        while(get_key() != p_key) {}
     } // pause timeattack by pushing p button
 }
