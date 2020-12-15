@@ -19,7 +19,7 @@ bool exit_flag = false;
 
 void signalHandler(int signum);
 
-int main() {
+int main2() {
     //random setting
     srand(time(NULL));
     system("clear");
@@ -48,10 +48,12 @@ int main() {
     return 0;
 }
 
-int main2(){
+int main(){
     int t = system("clear");
-    printFrame(0, 0, 15, 3, 94);
-    printFrameCursor(-1, -1, 17, 5, 94);
+    printFrame(0, 0, 20, 3, 94, "fuck you");
+    printFrameCursor(-1, -1, 22, 5, 94);
+    get_key();
+    removeFrame(-1, -1, 22, 5);
     cout << endl;
 }
 
