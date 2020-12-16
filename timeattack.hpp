@@ -5,8 +5,11 @@
 #include <signal.h>
 #include <unistd.h>
 
+pid_t timePid;
+
 void measure_time(pid_t pid, double time);
-double getTimeLeft() { return timeLeft; }
-pid_t getTimePid() { return getpid(); }
+double getTimeLeft();
+pid_t getTimePid() { return timePid; }
+void setTimePid(pid_t pid) { timePid = pid; }
 
 #endif
