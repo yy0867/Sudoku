@@ -1,3 +1,6 @@
+#ifndef __USERDATAMANAGEMENT_HPP__
+#define __USERDATAMANAGEMENT_HPP__
+
 #include <fcntl.h>
 #include <iostream>
 #include <list>
@@ -46,3 +49,5 @@ class UserDataManagement {
     void saveData(dataType userData, double userTime); //bring data
     void saveData(dataType &userData, double userTime, string filePath);
 };
+
+#endif
