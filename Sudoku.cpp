@@ -4,6 +4,7 @@
 #include "string"
 #include "timeattack.hpp"
 #include "getkey.hpp"
+#include "Sync.hpp"
 #include <cstdlib>
 #include <ctime>
 #include <unistd.h>
@@ -23,6 +24,8 @@ void gotoxy(int x, int y) {
 */
 
 //void signalHandler(int signum);
+
+
 
 bool is_digit(int key) { return (1 <= key - KEY_NUM && key - KEY_NUM <= 9); }
 
@@ -290,8 +293,10 @@ void Sudoku::moveCursor() {
         printColorCursor(x, y, 7, convertNumberToFullChar(num));
     else
         printColorCursor(x, y, 7, "  ");
+    lock_sem();
     gotoxy(50 + X_PADDING, 0);
     moveCursor(get_key());
+    unlock_sem();
 }
 
 void Sudoku::moveCursor(int key) {
@@ -387,22 +392,20 @@ void Sudoku::moveCursor(int key) {
         if (is_inMenu == true) {
             if (current_menu == 0) {
                 // pause time
-                gotoxy(20, 30);
-                cout << getTimePid() << endl;
-
-                
+                kill(getTimePid(), SIGSTOP);
                 while(get_key() != KEY_ENTER) {}
+                kill(getTimePid(), SIGCONT);
             } else if (current_menu == 1) {
                 // reset
-                out = true;
-                is_reset = true;
+                endflag = true;
+                resetflag = true;
                 is_inMenu = false;
                 current_menu = 0;
             } else if (current_menu == 2) {
                 // save
             } else {
                 // return to menu
-                out = true;
+                endflag = true;
                 is_inMenu = false;
                 current_menu = 0;
             }
