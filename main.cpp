@@ -79,6 +79,7 @@ int main2() {
     // int t = system("clear");
 
     // cout << printMainMenu() << endl;
+    return 0;
 }
 
 void signalHandler(int signum) {
