@@ -26,7 +26,7 @@ void printGameClear(){
 }
 
 void printPause(){
-    printTitle("./Artworks/Pause.txt", "Press any Enter key");
+    printTitle("./Artworks/Pause.txt", "Press Enter key");
 }
 
 void printTitle(const string path, const string ment){
