@@ -5,10 +5,10 @@
 #include "MainTitle.cpp"
 #include "MenuFrame.cpp"
 #include "Sudoku.cpp"
+#include "Sync.cpp"
 #include "UserDataManagement.cpp"
 #include "getkey.cpp"
 #include "timeattack.cpp"
-#include "Sync.cpp"
 
 #include <cstdlib>
 #include <ctime>
@@ -38,7 +38,7 @@ int main() {
     UserDataManagement data;
 
     // create Semaphore
-    if(creat_sem() == -1) {
+    if (creat_sem() == -1) {
         perror("semaphore create error!");
         exit(0);
     }
