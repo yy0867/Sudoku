@@ -63,7 +63,7 @@ Sudoku::Sudoku(int level) {
                                : sudoku[i][j] = sudoku[i - 3][j] + 1;
 
     // randomize basic sudoku
-    //randomize_sudoku();
+    randomize_sudoku();
     make_blank(level);
 }
 
