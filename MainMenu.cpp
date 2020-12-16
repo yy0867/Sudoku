@@ -39,3 +39,8 @@ void printMainMenu(int xOffset, int yOffset){
     vector<string> menuList = {"New Start", "Load Data", "Exit"};
     printMenu(xOffset, yOffset, MENU_WIDTH, MENU_HEIGHT, MENU_COLOR, MENU_TERM, menuList);
 }
+
+void printSaveSlot(int xOffset, int yOffset){
+    vector<string> menuList = {"Save Slot 1", "Save Slot 2", "Save Slot 3"};
+    printMenu(xOffset, yOffset, MENU_WIDTH, MENU_HEIGHT, MENU_COLOR, MENU_TERM, menuList);
+}
