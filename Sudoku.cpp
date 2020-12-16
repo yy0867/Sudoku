@@ -3,8 +3,12 @@
 #include "Frame.hpp"
 #include "string"
 #include "timeattack.hpp"
+#include "getkey.hpp"
 #include <cstdlib>
 #include <ctime>
+#include <unistd.h>
+#include <signal.h>
+#include <sys/wait.h>
 
 using namespace std;
 
@@ -17,6 +21,8 @@ void gotoxy(int x, int y) {
     fflush(stdout);
 }
 */
+
+//void signalHandler(int signum);
 
 bool is_digit(int key) { return (1 <= key - KEY_NUM && key - KEY_NUM <= 9); }
 
@@ -150,7 +156,7 @@ bool Sudoku::value_possible(const int row, const int column,
 
     // check square
     for (int i = sq_row; i < sq_row + 3; i++) {
-        for (int j = sq_col; j < sq_row + 3; j++) {
+        for (int j = sq_col; j < sq_col + 3; j++) {
             if (i == row && j == column)
                 continue;
             if (sudoku[i][j] == num)
@@ -381,6 +387,11 @@ void Sudoku::moveCursor(int key) {
         if (is_inMenu == true) {
             if (current_menu == 0) {
                 // pause time
+                gotoxy(20, 30);
+                cout << getTimePid() << endl;
+
+                
+                while(get_key() != KEY_ENTER) {}
             } else if (current_menu == 1) {
                 // reset
                 out = true;
