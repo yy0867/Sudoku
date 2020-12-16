@@ -338,38 +338,23 @@ void Sudoku::moveCursor(int key) {
         }
         break;
     case KEY_RIGHT:
-        if (isCursorPossible(x + 2, y)) {
-            x += 2;
-            column++;
-        } else if (isCursorPossible(x + 3, y)) {
-            x += 3;
-            column++;
-        } else {
-            printFrameCursor(29, -6, 20, 3, 94);
-            is_inMenu = true;
-            // int next_get_key = get_key();
-            // int count = 0;
-            // while (next_get_key != KEY_LEFT) {
-            //     int key = get_key();
-            //     removeFrame(29, -1, 20, 3);
-            //     if (next_get_key == KEY_UP) {
-            //         if(count!=0)
-            //             count--;
-            //     } else if (next_get_key == KEY_DOWN) {
-            //         if(count!=3)
-            //             count++;
-            //     }
-
-            //     printFrameCursor(29, -6, 20, 3, 94);
-            //     printFrameCursor(29, -1, 20, 3, 94);
-            //     printFrameCursor(29, 4, 20, 3, 94);
-            //     printFrameCursor(29, 9, 20, 3, 94);
-            // }
+        if (is_inMenu == false) {
+            if (isCursorPossible(x + 2, y)) {
+                x += 2;
+                column++;
+            } else if (isCursorPossible(x + 3, y)) {
+                x += 3;
+                column++;
+            } else {
+                printFrameCursor(29, -6, 20, 3, 94);
+                is_inMenu = true;
+            }
         }
         break;
     case KEY_LEFT:
         if (is_inMenu == true) {
             removeFrame(29, -6 + current_menu * 5, 20, 3);
+            current_menu = 0;
             is_inMenu = false;
         } else {
             if (isCursorPossible(x - 2, y)) {

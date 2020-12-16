@@ -1,11 +1,11 @@
 #include "ConsoleCursor.cpp"
 #include "Frame.cpp"
+#include "MainMenu.cpp"
 #include "MainTitle.cpp"
+#include "MenuFrame.cpp"
 #include "Sudoku.cpp"
 #include "getkey.cpp"
 #include "timeattack.cpp"
-#include "MenuFrame.cpp"
-#include "MainMenu.cpp"
 
 #include <cstdlib>
 #include <ctime>
@@ -23,8 +23,6 @@ bool exit_flag = false;
 
 void signalHandler(int signum);
 void printFrameInGameMenu();
-void MoveCursorToInGameMenu();
-void printFrameCursorInGameMenu();
 
 int main() {
     // random setting
@@ -38,8 +36,8 @@ int main() {
     getch();
     system("clear");
 
-    switch (printMainMenu()){
-    case SelectedMenu::NEW_START:{
+    switch (printMainMenu()) {
+    case SelectedMenu::NEW_START: {
         system("clear");
         sud.printBoard();
         pid_t pid = 0;
@@ -73,11 +71,10 @@ int main() {
 }
 
 int main2() {
-    //int t = system("clear");
+    // int t = system("clear");
 
-    //cout << printMainMenu() << endl;
+    // cout << printMainMenu() << endl;
 }
-
 
 void signalHandler(int signum) {
     if (signum == SIGINT) {
@@ -96,18 +93,3 @@ void printFrameInGameMenu() {
     printFrame(30, 5, 18, 1, 94, "SAVE");  // save function box
     printFrame(30, 10, 18, 1, 94, "MENU"); // return to menu function box
 }
-
-// void MoveCursorToInGameMenu() {
-//     if (get_key() == KEY_RIGHT) {
-//         printFrameCursorInGameMenu();
-//     }
-// }
-
-// void printFrameCursorInGameMenu() {
-//     printFrameCursor(29, -1, 20, 3, 94);
-//     while (1) {
-//         int getkey = get_key();
-//         if (getkey==KEY_UP)
-//             printFrameCursor(29, -1, 20, 3, 94);
-//     }
-// }
