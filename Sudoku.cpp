@@ -393,7 +393,6 @@ void Sudoku::moveCursor(int key) {
                 cout << getTimePid() << endl;
 
                 kill(getTimePid(), SIGSTOP);
-                cout << "yasking" << endl;
                 while(get_key() != KEY_ENTER) {}
                 kill(getTimePid(), SIGCONT);
             } else if (current_menu == 1) {
