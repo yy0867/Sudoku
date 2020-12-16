@@ -2,6 +2,7 @@
 #define __TIMEATTACK_HPP__
 
 #include "ConsoleCursor.hpp"
+#include "MainTitle.hpp"
 #include <signal.h>
 #include <unistd.h>
 
