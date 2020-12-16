@@ -379,6 +379,7 @@ void Sudoku::moveCursor(int key) {
             if (current_menu == 0) {
                 // pause time
                 kill(getpid(), SIGTSTP);
+                
             } else if (current_menu == 1) {
                 // reset
                 srand(time(NULL));
