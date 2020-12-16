@@ -19,6 +19,7 @@ void printTitle() {
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &console);
 
     printTitle(((console.ws_col) - getLargestWidth(path))/2, 3, path);// middle sorting
+    cout << ((console.ws_col))/2 << endl;
     printBlinkingComment(((console.ws_col) - ment.length()) / 2, 15, 37, ment);
     gotoxy(1000, 1000);
 }
@@ -53,6 +54,7 @@ int getLargestWidth(const string path){
             largestWidth = buf.length();
         }
     }
+    cout << largestWidth << endl;
     target.close();
     return largestWidth;
 }

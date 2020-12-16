@@ -60,13 +60,11 @@ int main() {
             sud.resetflag = false;
             system("clear");
 
-            gotoxy(0, 22);
             sud.printBoard();
             pid_t pid = 0;
             double time = 100;
-            data.loadData(sud, time, 0);
+            //data.loadData(sud, time, 0);
             //time = data.userTime;
-            cout << time << "yasking" << endl;
             printFrameInGameMenu();
 
             pid = fork(); // make child process
@@ -77,6 +75,9 @@ int main() {
                 setTimePid(pid);
                 while (1) {
                     sud.moveCursor();
+                    gotoxy(30, 20);
+                    cout << getTimeLeft() << endl; //DEBUG*******************************
+                    data.saveData(sud, getTimeLeft(), 0);
                     if (sud.endflag == true) {
                         kill(pid, SIGKILL);
                         system("clear");
@@ -97,6 +98,7 @@ int main() {
             exit(0);
             break;
         }
+    }
     return 0;
 }
 

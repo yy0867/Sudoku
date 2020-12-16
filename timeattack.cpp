@@ -6,11 +6,11 @@
 
 using namespace std;
 
-double timeLeft = 0; 
+double timeLeft = 0;
 
 void measure_time(pid_t pid, double time) {
     int count = 0;
-    
+
     for (double i = time; i >= 0; i -= 0.01) {
         lock_sem();
         gotoxy(TIME_ROW, TIME_COL);
@@ -24,6 +24,7 @@ void measure_time(pid_t pid, double time) {
     cout << "Time Over!" << endl;
 
     kill(pid, SIGINT);
+    exit(0);
 }
 
 double getTimeLeft() { return timeLeft; }
