@@ -50,6 +50,13 @@ int main() {
     shmaddr = shm_attach();
     printTitle();
     getch();
+    //printGameClear();
+    //getch();
+    //printGameOver();
+    //getch();
+    //printPause();
+    //getch();
+
     system("clear");
     while (1) {
         SelectedMenu sel;
@@ -67,7 +74,7 @@ int main() {
 
             pid_t pid = 0;
             double time = 100;
-            data.loadData(sud, time, 0);
+            //data.loadData(sud, time, 0);
             sud.printBoard();
             //time = data.userTime;
             printFrameInGameMenu();
@@ -80,7 +87,7 @@ int main() {
                 setTimePid(pid);
                 while (1) {
                     sud.moveCursor();
-                    data.saveData(sud, *shmaddr, 0);
+                    //data.saveData(sud, *shmaddr, 0);
                     if (sud.endflag == true) {
                         kill(pid, SIGKILL);
                         system("clear");
@@ -92,7 +99,7 @@ int main() {
             break;
         }
         case SelectedMenu::LOAD_SAVE:
-            //data.loadData(sud, timeLeft, 0);
+            data.loadData(sud, timeLeft, 0);
             break;
 
         case SelectedMenu::EXIT:

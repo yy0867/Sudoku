@@ -8,18 +8,33 @@
 using namespace std;
 
 void printTitle(int xPadding, int yPadding, const string path);
-int getLargestWidth(string path);
+int getLargestWidth(const string path);
 void printBlinkingComment(int x, int y, int color, const string comment);
 void printTitle();
+void printTitle(const string path);
 
 void printTitle() {
-    string path = "./Artworks/MainTitle.txt";
+    printTitle("./Artworks/MainTitle.txt");
+}
+
+void printGameOver(){
+    printTitle("./Artworks/GameOver.txt");
+}
+
+void printGameClear(){
+    printTitle("./Artworks/Clear.txt");
+}
+
+void printPause(){
+    printTitle("./Artworks/Pause.txt");
+}
+
+void printTitle(const string path){
     string ment = "Press any key";
     struct winsize console;
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &console);
 
     printTitle(((console.ws_col) - getLargestWidth(path))/2, 3, path);// middle sorting
-    cout << ((console.ws_col))/2 << endl;
     printBlinkingComment(((console.ws_col) - ment.length()) / 2, 15, 37, ment);
     gotoxy(1000, 1000);
 }
