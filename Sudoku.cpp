@@ -384,6 +384,8 @@ void Sudoku::moveCursor(int key) {
             } else {
                 // return to menu
                 out = true;
+                is_inMenu = false;
+                current_menu = 0;
             }
         }
         break;

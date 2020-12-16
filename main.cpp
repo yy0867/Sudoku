@@ -62,6 +62,7 @@ int main() {
                     }
                 }
                 if (sud.is_reset == true) {
+                    sud.is_reset = false;
                     newgame();
                 }
             }
