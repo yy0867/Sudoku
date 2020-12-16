@@ -55,7 +55,6 @@ int main() {
         } else {
             while (1) {
                 sud.moveCursor();
-                // MoveCursorToInGameMenu();
             }
             break;
         }
@@ -66,6 +65,7 @@ int main() {
 
     case SelectedMenu::EXIT:
         cout << endl;
+        exit(0);
         break;
     }
 
