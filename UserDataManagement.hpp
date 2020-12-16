@@ -22,7 +22,7 @@ class UserDataManagement {
     int openFile(string filePath, int flags);
     string makeSlotPath(int saveSlotNumber);
     void loadSave(string filePath);
-    //void loadData(int saveSlotNumber);
+    void loadData(int saveSlotNumber);
 
 
 
@@ -30,18 +30,19 @@ class UserDataManagement {
   public:
     dataType userData;
     double userTime;
-    UserDataManagement(dataType presentSudoku, double presentTime, string filePath = "./Save/");
+    UserDataManagement(dataType &presentSudoku, double &presentTime, string filePath = "./Save/");
     ~UserDataManagement();
-    //void saveData();
+    void saveData();
 
 
-    void saveData(dataType userData, double userTime, int saveSlotNumber);
-    //void saveData(int saveSlotNumber);
+    void saveData(dataType &userData, double userTime,
+                                  int saveSlotNumber);
+    void saveData(int saveSlotNumber);
     void loadData(dataType &sudokuSource, double &timeSource, int saveSlotNumber);
     void loadData(int saveSlotNumber);
-    //dataType &getData();
-    //int getTime();
+    dataType &getData();
+    int getTime();
 
-    //void saveData(dataType userData, double userTime); //bring data
-    //void saveData(dataType &userData, double userTime, string filePath);
+    void saveData(dataType userData, double userTime); //bring data
+    void saveData(dataType &userData, double userTime, string filePath);
 };
