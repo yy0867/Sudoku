@@ -26,7 +26,7 @@ bool exit_flag = false;
 void signalHandler(int signum);
 void newgame();
 
-int main() {
+int main2() {
     // random setting
     srand(time(NULL));
     system("clear");
@@ -73,7 +73,7 @@ int main() {
             break;
         }
         case SelectedMenu::LOAD_SAVE:
-            data.loadData(sud, timeLeft);
+            //data.loadData(sud, timeLeft);
             break;
 
         case SelectedMenu::EXIT:
@@ -84,7 +84,26 @@ int main() {
     return 0;
 }
 
-int main2() {
+int main() {
+    system("clear");
+    Sudoku sud;
+    sud.printBoard();
+    gotoxy(0, 22);
+    for (int i = 0; i < 9; i++)
+    {
+        for (int j = 0; j < 9; j++)
+        {
+            cout << sud.sudoku[i][j] << " " << flush;
+            if(j%3 == 2){
+                cout << " ";
+            }
+        }
+        cout << endl;
+        if(i%3 == 2){
+                cout << endl;
+        }
+    }
+    cout << endl;
     // int t = system("clear");
 
     // cout << printMainMenu() << endl;
