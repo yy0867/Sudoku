@@ -11,26 +11,25 @@ void printTitle(int xPadding, int yPadding, const string path);
 int getLargestWidth(const string path);
 void printBlinkingComment(int x, int y, int color, const string comment);
 void printTitle();
-void printTitle(const string path);
+void printTitle(const string path, const string ment);
 
 void printTitle() {
-    printTitle("./Artworks/MainTitle.txt");
+    printTitle("./Artworks/MainTitle.txt", "Press any key");
 }
 
 void printGameOver(){
-    printTitle("./Artworks/GameOver.txt");
+    printTitle("./Artworks/GameOver.txt", "Press any key");
 }
 
 void printGameClear(){
-    printTitle("./Artworks/Clear.txt");
+    printTitle("./Artworks/Clear.txt", "Press any key");
 }
 
 void printPause(){
-    printTitle("./Artworks/Pause.txt");
+    printTitle("./Artworks/Pause.txt", "Press any Enter key");
 }
 
-void printTitle(const string path){
-    string ment = "Press any key";
+void printTitle(const string path, const string ment){
     struct winsize console;
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &console);
 
