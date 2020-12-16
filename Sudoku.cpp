@@ -383,22 +383,10 @@ void Sudoku::moveCursor(int key) {
                 // pause time
             } else if (current_menu == 1) {
                 // reset
-                srand(time(NULL));
-                system("clear");
-                printBoard();
-                // pid_t pid = 0;
-                // double time = 100;
-                // printFrameInGameMenu();
-
-                // pid = fork(); // make child process
-                // if (pid == 0) {
-                //     measure_time(getpid(), time);
-                // } else {
-                //     while (1) {
-                //         moveCursor();
-                //     }
-                //     break;
-                // }
+                out = true;
+                is_reset = true;
+                is_inMenu = false;
+                current_menu = 0;
             } else if (current_menu == 2) {
                 // save
             } else {
