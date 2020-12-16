@@ -6,17 +6,33 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include "Sudoku.hpp"
 
 #define SAVE_DATA_NUM = 3
-typedef int dataType;
+typedef Sudoku dataType;
 
 using namespace std;
 
 class UserDataManagement {
   private:
-    int &UserDataManagement::openFile(string filePath, int pipe);
+    string filePath;
+    string saveFileName[3] = {"sudoku_save_0", "sudoku_save_1", "sudoku_save_2"};
+    dataType userData;
+    double userTime;
+
+    int openFile(string filePath, int flags);
+    string makeSlotPath(int saveSlotNumber);
+    void loadSave(string filePath);
+    void loadData(int saveSlotNumber);
+
+    void saveData(dataType &userData, double userTime, string filePath);
+    void saveData(dataType &userData, double userTime, int saveSlotNumber);
 
   public:
-    dataType &loadData(string filePath);
-    void saveData(dataType &userData, string filePath);
+    UserDataManagement(string filePath  = "./Save/");
+    ~UserDataManagement();
+
+    void loadData(dataType &sudokuSource, double &timeSource);
+    //dataType &getData();
+    //int getTime();
 };

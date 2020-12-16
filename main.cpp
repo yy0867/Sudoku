@@ -7,6 +7,7 @@
 #include "Sudoku.cpp"
 #include "getkey.cpp"
 #include "timeattack.cpp"
+#include "UserDataManagement.cpp"
 
 #include <cstdlib>
 #include <ctime>
@@ -23,6 +24,7 @@ const int p_key = 112; // p button value
 bool exit_flag = false;
 
 void signalHandler(int signum);
+void newgame();
 
 int main() {
     // random setting
@@ -32,6 +34,8 @@ int main() {
     signal(SIGINT, signalHandler);
     signal(SIGTSTP, signalHandler);
     Sudoku sud;
+    UserDataManagement data;
+
     printTitle();
     getch();
     system("clear");
@@ -60,15 +64,19 @@ int main() {
                         break;
                     }
                 }
+                if (sud.is_reset == true) {
+                    sud.is_reset = false;
+                    newgame();
+                }
             }
             break;
         }
         case SelectedMenu::LOAD_SAVE:
-            cout << endl;
+            data.loadData(sud, timeLeft);
             break;
 
         case SelectedMenu::EXIT:
-            cout << endl;
+            exit(0);
             break;
         }
     }
@@ -92,4 +100,35 @@ void signalHandler(int signum) {
     //     while (get_key() != p_key) {
     //     }
     // } // pause timeattack by pushing p button
+}
+void newgame() {
+    srand(time(NULL));
+    system("clear");
+
+    Sudoku sud;
+    sud.printBoard();
+    pid_t pid = 0;
+    double time = 100;
+    printFrameInGameMenu();
+
+    pid = fork(); // make child process
+    if (pid == 0) {
+        measure_time(getppid(), time);
+        // if (get_key() == p_key) {
+        //     kill(pid, SIGTSTP);
+        // }
+    } else {
+        while (1) {
+            sud.moveCursor();
+            if (sud.out == true) {
+                kill(pid, SIGKILL);
+                system("clear");
+                sud.out = false;
+                break;
+            }
+        }
+        if (sud.is_reset == true) {
+            newgame();
+        }
+    }
 }

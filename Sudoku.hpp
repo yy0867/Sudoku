@@ -36,8 +36,8 @@ using namespace std;
 class Sudoku {
   public:
     bool out = false;
+    bool is_reset = false;
     Sudoku(int level = MEDIUM);
-
     void set_sudoku(const int row, const int col, const int num) {
         sudoku[row][col] = num;
     }
