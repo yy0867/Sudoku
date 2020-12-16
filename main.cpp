@@ -48,6 +48,7 @@ int main() {
             if (pid == 0) {
                 measure_time(getpid(), time);
                 // if (get_key() == p_key) {
+                //     //pause *********************************
                 //     kill(pid, SIGTSTP);
                 // }
             } else {
@@ -89,7 +90,7 @@ void signalHandler(int signum) {
         exit(1); // change exit to UI
     }
     // else if (signum == SIGTSTP) {
-    //     while (get_key() != p_key) {
-    //     }
+    //      while (get_key() != p_key) {
+    //      }
     // } // pause timeattack by pushing p button
 }
