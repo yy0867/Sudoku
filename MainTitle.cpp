@@ -1,32 +1,19 @@
-#include <stdlib.h>
-#include <unistd.h>
-#include <fstream>
-#include <iostream>
-#include "ConsoleCursor.hpp"
-#include <sys/ioctl.h>
-
-using namespace std;
-
-void printTitle(int xPadding, int yPadding, const string path);
-int getLargestWidth(const string path);
-void printBlinkingComment(int x, int y, int color, const string comment);
-void printTitle();
-void printTitle(const string path, const string ment);
+#include "MainTitle.hpp"
 
 void printTitle() {
-    printTitle("./Artworks/MainTitle.txt", "Press any key");
+    printTitle("./Artworks/MainTitle.txt", "Press Any Key");
 }
 
 void printGameOver(){
-    printTitle("./Artworks/GameOver.txt", "Press any key");
+    printTitle("./Artworks/GameOver.txt", "Press Any Key");
 }
 
 void printGameClear(){
-    printTitle("./Artworks/Clear.txt", "Press any key");
+    printTitle("./Artworks/Clear.txt", "Press Any Key");
 }
 
 void printPause(){
-    printTitle("./Artworks/Pause.txt", "Press any Enter key");
+    printTitle("./Artworks/Pause.txt", "Press Enter Key");
 }
 
 void printTitle(const string path, const string ment){

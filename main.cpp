@@ -46,21 +46,12 @@ int main() {
     }
     shm_init();
 
-
     double time = 100;
-    //data.loadData(sud, time, 0);
-
     double *shmaddr = NULL;
     bool is_loaded = false;
     shmaddr = shm_attach();
     printTitle();
     getch();
-    //printGameClear();
-    //getch();
-    //printGameOver();
-    //getch();
-    //printPause();
-    //getch();
 
     system("clear");
     while (1) {
@@ -84,7 +75,6 @@ int main() {
 
             pid_t pid = 0;
             sud.printBoard();
-            //time = data.userTime;
             printFrameInGameMenu();
 
             pid = fork(); // make child process
@@ -148,8 +138,10 @@ int main2(Sudoku &sud) {
 
 void signalHandler(int signum) {
     if (signum == SIGINT) {
+        //cout << "Exit!" << endl;
+        printGameOver();
+        get_key();
         system("clear");
-        cout << "Exit!" << endl;
         exit(1); // change exit to UI
     }
     // else if (signum == SIGTSTP) {

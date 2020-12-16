@@ -28,7 +28,6 @@ void measure_time(pid_t pid, double time) {
     }
     shm_detach(shmaddr);
     cout << "Time Over!" << endl;
-
     kill(pid, SIGINT);
     exit(0);
 }
