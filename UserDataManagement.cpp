@@ -1,10 +1,10 @@
 #include "UserDataManagement.hpp"
 
-UserDataManagement::UserDataManagement(dataType &presentSudoku, double &presentTime, string filePath){
-    this->userTime = presentTime;
-    this->userData = presentSudoku;
-    this->filePath = filePath;
-    mkdir(filePath.c_str(), 0777);
+UserDataManagement::UserDataManagement(/*dataType &presentSudoku, double &presentTime, string filePath*/){
+    //this->userTime = presentTime;
+    //this->userData = presentSudoku;
+    this->filePath = "./Save/";
+    mkdir("./Save", 0777);
 }
 
 string UserDataManagement::makeSlotPath(int saveSlotNumber) {
@@ -12,27 +12,13 @@ string UserDataManagement::makeSlotPath(int saveSlotNumber) {
     return filePath.append(saveFileName[saveSlotNumber]);
 }
 
-void UserDataManagement::loadData(int saveSlotNumber) { // path + file name
-    loadSave(makeSlotPath(saveSlotNumber));
-}
-
-void UserDataManagement::loadSave(string filePath) {
-    int fd = openFile(filePath, O_RDONLY);
-    if (read(fd, &(this->userData), sizeof(dataType)) == -1) {
-        perror("read() error");
-    }
-    if (read(fd, &(this->userTime), sizeof(double)) == -1) {
-        perror("read() error");
-    }
-}
 
 void UserDataManagement::saveData(dataType &userData, double userTime,
                                   int saveSlotNumber) {
     saveData(userData, userTime, makeSlotPath(saveSlotNumber));
 }
 
-void UserDataManagement::saveData(dataType &userData, double userTime,
-                                  string filePath) {
+void UserDataManagement::saveData(dataType &userData, double userTime, string filePath) {
     int fd = openFile(filePath, O_CREAT | O_TRUNC | O_WRONLY);
     if (write(fd, &userData, sizeof(userData)) == -1) {
         perror("write() error");
@@ -55,10 +41,31 @@ int UserDataManagement::openFile(string filePath, int flags) {
     return fd;
 }
 
+void UserDataManagement::loadData(string filePath) {
+    int fd = openFile(filePath, O_RDONLY);
+    if (read(fd, &(this->userData), sizeof(dataType)) == -1) {
+        perror("read() error");
+    }
+    if (read(fd, &(this->userTime), sizeof(double)) == -1) {
+        perror("read() error");
+    }
+}
+
+void  UserDataManagement::loadData(dataType &sudokuSource, double &timeSource, int saveSlotNumber){
+    loadData(makeSlotPath(saveSlotNumber));
+    sudokuSource = this->userData;
+    timeSource = this->userTime;
+}
+/*
 void UserDataManagement::loadData(dataType &sudokuSource, double &timeSource) {
     sudokuSource = this->userData;
     timeSource = this->userTime;
 }
+
+void UserDataManagement::loadData(int saveSlotNumber) { // path + file name
+    loadSave(makeSlotPath(saveSlotNumber));
+}
+*/
 
 UserDataManagement::~UserDataManagement() {
     // delete saveFileName;

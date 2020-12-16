@@ -37,7 +37,7 @@ int main() {
     signal(SIGINT, signalHandler);
     // signal(SIGTSTP, signalHandler);
     Sudoku sud;
-    UserDataManagement data(sud, getTimeLeft());
+    UserDataManagement data;
 
     // create Semaphore
     if (creat_sem() == -1) {
@@ -46,6 +46,8 @@ int main() {
     }
     shm_init();
 
+    double *shmaddr = NULL;
+    shmaddr = shm_attach();
     printTitle();
     getch();
     system("clear");
@@ -62,10 +64,11 @@ int main() {
             sud.resetflag = false;
             system("clear");
 
-            sud.printBoard();
+
             pid_t pid = 0;
             double time = 100;
-            //data.loadData(sud, time, 0);
+            data.loadData(sud, time, 0);
+            sud.printBoard();
             //time = data.userTime;
             printFrameInGameMenu();
 
@@ -77,9 +80,7 @@ int main() {
                 setTimePid(pid);
                 while (1) {
                     sud.moveCursor();
-                    gotoxy(30, 20);
-                    cout << getTimeLeft() << endl; //DEBUG*******************************
-                    data.saveData(sud, getTimeLeft(), 0);
+                    data.saveData(sud, *shmaddr, 0);
                     if (sud.endflag == true) {
                         kill(pid, SIGKILL);
                         system("clear");
@@ -96,6 +97,7 @@ int main() {
 
         case SelectedMenu::EXIT:
             destroy_sem();
+            shm_detach(shmaddr);
             system("clear");
             exit(0);
             break;

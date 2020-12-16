@@ -8,17 +8,11 @@
 using namespace std;
 
 double timeLeft = 0;
-<<<<<<< HEAD
-
-void measure_time(pid_t pid, double time) {
-    int count = 0;
-=======
 double *shmaddr = NULL;
 
 void measure_time(pid_t pid, double time) {
     int count = 0;
     shmaddr = shm_attach();
->>>>>>> master
 
     for (double i = time; i >= 0; i -= 0.01) {
         *shmaddr = i;
@@ -38,8 +32,3 @@ void measure_time(pid_t pid, double time) {
     kill(pid, SIGINT);
     exit(0);
 }
-<<<<<<< HEAD
-
-double getTimeLeft() { return timeLeft; }
-=======
->>>>>>> master
