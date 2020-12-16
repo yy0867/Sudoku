@@ -20,7 +20,6 @@
 #define DEFAULT_FONT_COLOR 32
 #define CUSTOM_FONT_COLOR 37
 
-
 enum FLAG { ROW_LINE = 1, COL_LINE, ROW_GROUP, COL_GROUP, NUM };
 /*#define COLOR_DEFAULT 0
 #define COLOR_BLACK 40
@@ -36,6 +35,7 @@ using namespace std;
 
 class Sudoku {
   public:
+    bool out = false;
     Sudoku(int level = MEDIUM);
 
     void set_sudoku(const int row, const int col, const int num) {
@@ -51,13 +51,14 @@ class Sudoku {
     void printBoard() const;
     void printCursor() const;
     /* //Replace to ConsoleCursor
-    void printColorCursor(int x, int y, string multiColor, const string str) const;
-    void printColorCursor(int x, int y, int color, const string str) const;
+    void printColorCursor(int x, int y, string multiColor, const string str)
+    const; void printColorCursor(int x, int y, int color, const string str)
+    const;
     //void printColorCursor(int x, int y, int color, const char str) const;
     void printColorCursor(int x, int y, int color, const char *str) const;
     void printColorCursor(int x, int y, int color, const int str) const;
     */
-    //char *convertNumberToFullChar(int num) const; // Alternated
+    // char *convertNumberToFullChar(int num) const; // Alternated
     string convertNumberToFullChar(int num) const;
 
     /*//Replace to Frame
@@ -90,10 +91,11 @@ class Sudoku {
     int x, y;
     int row, column;
     bool origin[N][N];
-    //void printFrame(int x, int y, int width, int height, string multiColor, string rowEdge, string columnEdge) const;
+    // void printFrame(int x, int y, int width, int height, string multiColor,
+    // string rowEdge, string columnEdge) const;
 };
 
-//extern void gotoxy(int x, int y); //Replace to ConsoleCursor
+// extern void gotoxy(int x, int y); //Replace to ConsoleCursor
 extern bool is_digit(int key);
 extern bool out_of_bound(const int row, const int column, const int num = 3);
 

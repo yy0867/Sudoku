@@ -395,6 +395,7 @@ void Sudoku::moveCursor(int key) {
                 // save
             } else {
                 // return to menu
+                out = true;
             }
         }
         break;
@@ -403,7 +404,6 @@ void Sudoku::moveCursor(int key) {
         break;
     }
 }
-
 /* Alternated
 char *Sudoku::convertNumberToFullChar(int num) const { // input 0 ~ 9
 integer char fullNum[] = "０"; fullNum[2] += num; char *result = fullNum;
