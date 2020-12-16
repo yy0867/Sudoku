@@ -122,30 +122,6 @@ int main() {
     return 0;
 }
 
-int main2(Sudoku &sud) {
-    gotoxy(0, 25);
-    for (int i = 0; i < 9; i++)
-    {
-        for (int j = 0; j < 9; j++)
-        {
-            cout << sud.sudoku[i][j] << " " << flush;
-            if(j%3 == 2){
-                cout << " ";
-            }
-        }
-        cout << endl;
-        if(i%3 == 2){
-                cout << endl;
-        }
-    }
-    cout << endl;
-    // int t = system("clear");
-
-    // cout << printMainMenu() << endl;
-    gotoxy(0, 0);
-    return 0;
-}
-
 void signalHandler(int signum) {
     if (signum == SIGINT) {
         system("clear");

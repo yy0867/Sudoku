@@ -286,7 +286,9 @@ void Sudoku::printBoard() const {
             }
         }
     }
+    lock_sem();
     gotoxy(X_PADDING, 15);
+    unlock_sem();
 }
 
 void Sudoku::moveCursor() {
@@ -299,6 +301,11 @@ void Sudoku::moveCursor() {
     gotoxy(50 + X_PADDING, 0);
     moveCursor(get_key());
     unlock_sem();
+    if(is_finish()) {
+        printGameClear();
+        get_key();
+        exit(0);
+    }
 }
 
 void Sudoku::moveCursor(int key) {
@@ -533,4 +540,14 @@ void Sudoku::swap_number(int first, int second) {
                 sudoku[i][j] = first;
         }
     }
+}
+
+bool Sudoku::is_finish() const {
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            if(sudoku[i][j] == 0) 
+                return false;
+        }
+    }
+    return true;
 }
