@@ -32,7 +32,7 @@ int main() {
     system("clear");
 
     signal(SIGINT, signalHandler);
-    signal(SIGTSTP, signalHandler);
+    //signal(SIGTSTP, signalHandler);
     Sudoku sud;
     UserDataManagement data;
 
@@ -50,11 +50,10 @@ int main() {
 
             pid = fork(); // make child process
             if (pid == 0) {
+                setTimePid(getpid());
                 measure_time(getppid(), time);
-                // if (get_key() == p_key) {
-                //     kill(pid, SIGTSTP);
-                // }
             } else {
+                setTimePid(pid);
                 while (1) {
                     sud.moveCursor();
                     if (sud.out == true) {
@@ -97,8 +96,8 @@ void signalHandler(int signum) {
         exit(1); // change exit to UI
     }
     // else if (signum == SIGTSTP) {
-    //     while (get_key() != p_key) {
-    //     }
+    //      while (get_key() != p_key) {
+    //      }
     // } // pause timeattack by pushing p button
 }
 void newgame() {

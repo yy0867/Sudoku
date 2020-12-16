@@ -8,6 +8,7 @@
 #include <ctime>
 #include <unistd.h>
 #include <signal.h>
+#include <sys/wait.h>
 
 using namespace std;
 
@@ -21,7 +22,7 @@ void gotoxy(int x, int y) {
 }
 */
 
-void signalHandler(int signum);
+//void signalHandler(int signum);
 
 bool is_digit(int key) { return (1 <= key - KEY_NUM && key - KEY_NUM <= 9); }
 
@@ -386,8 +387,11 @@ void Sudoku::moveCursor(int key) {
         if (is_inMenu == true) {
             if (current_menu == 0) {
                 // pause time
-                kill(getpid(), SIGTSTP);
+                gotoxy(20, 30);
+                cout << getTimePid() << endl;
+
                 
+                while(get_key() != KEY_ENTER) {}
             } else if (current_menu == 1) {
                 // reset
                 out = true;
@@ -515,11 +519,5 @@ void Sudoku::swap_number(int first, int second) {
             else if (sudoku[i][j] == second)
                 sudoku[i][j] = first;
         }
-    }
-}
-
-void signalHandler(int signum) {
-    if(signum == SIGTSTP) {
-
     }
 }
