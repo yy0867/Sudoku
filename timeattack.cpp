@@ -9,12 +9,12 @@ double timeLeft = 0;
 
 void measure_time(pid_t pid, double time) {
     int count = 0;
+    is_stop = false;
 
     gotoxy(25, 30);
     cout << getpid() << endl;
     
     for (double i = time; i >= 0; i -= 0.01) {
-        
         gotoxy(TIME_ROW, TIME_COL);
         cout << "TIME : " << i << "..." << flush;
         timeLeft = i;

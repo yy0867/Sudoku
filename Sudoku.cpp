@@ -24,6 +24,8 @@ void gotoxy(int x, int y) {
 
 //void signalHandler(int signum);
 
+
+
 bool is_digit(int key) { return (1 <= key - KEY_NUM && key - KEY_NUM <= 9); }
 
 bool out_of_bound(const int row, const int column, const int num) {
@@ -390,8 +392,10 @@ void Sudoku::moveCursor(int key) {
                 gotoxy(20, 30);
                 cout << getTimePid() << endl;
 
-                
+                kill(getTimePid(), SIGSTOP);
+                cout << "yasking" << endl;
                 while(get_key() != KEY_ENTER) {}
+                kill(getTimePid(), SIGCONT);
             } else if (current_menu == 1) {
                 // reset
                 endflag = true;
