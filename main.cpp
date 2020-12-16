@@ -5,9 +5,9 @@
 #include "MainTitle.cpp"
 #include "MenuFrame.cpp"
 #include "Sudoku.cpp"
+#include "UserDataManagement.cpp"
 #include "getkey.cpp"
 #include "timeattack.cpp"
-#include "UserDataManagement.cpp"
 
 #include <cstdlib>
 #include <ctime>
@@ -32,7 +32,7 @@ int main() {
     system("clear");
 
     signal(SIGINT, signalHandler);
-    //signal(SIGTSTP, signalHandler);
+    // signal(SIGTSTP, signalHandler);
     Sudoku sud;
     UserDataManagement data;
 
@@ -40,8 +40,16 @@ int main() {
     getch();
     system("clear");
     while (1) {
-        switch (printMainMenu()) {
+        SelectedMenu sel;
+        if (sud.resetflag == true) {
+            sel = SelectedMenu::NEW_START;
+            sud = Sudoku();
+        } else {
+            sel = printMainMenu();
+        }
+        switch (sel) {
         case SelectedMenu::NEW_START: {
+            sud.resetflag = false;
             system("clear");
             sud.printBoard();
             pid_t pid = 0;
@@ -56,17 +64,13 @@ int main() {
                 setTimePid(pid);
                 while (1) {
                     sud.moveCursor();
-                    if (sud.out == true) {
+                    if (sud.endflag == true) {
                         kill(pid, SIGKILL);
                         system("clear");
-                        sud.out = false;
+                        sud.endflag = false;
                         break;
                     }
                 }
-                /*if (sud.is_reset == true) {
-                    sud.is_reset = false;
-                    newgame();
-                }*/
             }
             break;
         }
@@ -100,34 +104,34 @@ void signalHandler(int signum) {
     //      }
     // } // pause timeattack by pushing p button
 }
-void newgame() {
-    srand(time(NULL));
-    system("clear");
+// void newgame() {
+//     srand(time(NULL));
+//     system("clear");
 
-    Sudoku sud;
-    sud.printBoard();
-    pid_t pid = 0;
-    double time = 100;
-    printFrameInGameMenu();
+//     Sudoku sud;
+//     sud.printBoard();
+//     pid_t pid = 0;
+//     double time = 100;
+//     printFrameInGameMenu();
 
-    pid = fork(); // make child process
-    if (pid == 0) {
-        measure_time(getppid(), time);
-        // if (get_key() == p_key) {
-        //     kill(pid, SIGTSTP);
-        // }
-    } else {
-        while (1) {
-            sud.moveCursor();
-            if (sud.out == true) {
-                kill(pid, SIGKILL);
-                system("clear");
-                sud.out = false;
-                break;
-            }
-        }
-        if (sud.is_reset == true) {
-            newgame();
-        }
-    }
-}
+//     pid = fork(); // make child process
+//     if (pid == 0) {
+//         measure_time(getppid(), time);
+//         // if (get_key() == p_key) {
+//         //     kill(pid, SIGTSTP);
+//         // }
+//     } else {
+//         while (1) {
+//             sud.moveCursor();
+//             if (sud.out == true) {
+//                 kill(pid, SIGKILL);
+//                 system("clear");
+//                 sud.out = false;
+//                 break;
+//             }
+//         }
+//         if (sud.is_reset == true) {
+//             newgame();
+//         }
+//     }
+// }
