@@ -74,6 +74,7 @@ class Sudoku {
     void moveCursor(int key);
     bool isFrameCursor(int cursor) const;
     bool isFrameCursor(const int new_x, const int new_y) const;
+    void is_finish() const;
     int sudoku[N][N];
 
     // first & second must be in the same group [1, 2, 3 | 4, 5, 6 | 7, 8, 9]

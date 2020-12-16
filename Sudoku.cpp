@@ -299,6 +299,7 @@ void Sudoku::moveCursor() {
     gotoxy(50 + X_PADDING, 0);
     moveCursor(get_key());
     unlock_sem();
+    is_finish();
 }
 
 void Sudoku::moveCursor(int key) {
@@ -533,4 +534,14 @@ void Sudoku::swap_number(int first, int second) {
                 sudoku[i][j] = first;
         }
     }
+}
+
+void Sudoku::is_finish() const {
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            if(sudoku[i][j] == 0) 
+                return;
+        }
+    }
+    kill(getpid(), SIGUSR1);
 }

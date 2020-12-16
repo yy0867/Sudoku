@@ -2,6 +2,7 @@
 #define __CONSOLECURSOR_HPP__
 
 #include <iostream>
+#include "Sync.hpp"
 
 using namespace std;
 

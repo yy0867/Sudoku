@@ -35,7 +35,7 @@ int main() {
     system("clear");
 
     signal(SIGINT, signalHandler);
-    // signal(SIGTSTP, signalHandler);
+    signal(SIGUSR1, signalHandler);
     Sudoku sud;
     UserDataManagement data;
 
@@ -112,30 +112,6 @@ int main() {
     return 0;
 }
 
-int main2(Sudoku &sud) {
-    gotoxy(0, 25);
-    for (int i = 0; i < 9; i++)
-    {
-        for (int j = 0; j < 9; j++)
-        {
-            cout << sud.sudoku[i][j] << " " << flush;
-            if(j%3 == 2){
-                cout << " ";
-            }
-        }
-        cout << endl;
-        if(i%3 == 2){
-                cout << endl;
-        }
-    }
-    cout << endl;
-    // int t = system("clear");
-
-    // cout << printMainMenu() << endl;
-    gotoxy(0, 0);
-    return 0;
-}
-
 void signalHandler(int signum) {
     if (signum == SIGINT) {
         //cout << "Exit!" << endl;
@@ -143,6 +119,13 @@ void signalHandler(int signum) {
         get_key();
         system("clear");
         exit(1); // change exit to UI
+    } else if(signum == SIGUSR1) {
+        kill(getTimePid(), SIGKILL);
+        system("clear");
+        printGameClear();
+        get_key();
+        system("clear");
+        exit(1);
     }
     // else if (signum == SIGTSTP) {
     //      while (get_key() != p_key) {
