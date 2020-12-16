@@ -1,16 +1,17 @@
 #include "UserDataManagement.hpp"
 
-UserDataManagement::UserDataManagement(string filePath){ //  filePath must end /
+UserDataManagement::UserDataManagement(
+    string filePath) { //  filePath must end /
     this->filePath = filePath;
     mkdir(filePath.c_str(), 0777);
 }
 
-string UserDataManagement::makeSlotPath(int saveSlotNumber){
+string UserDataManagement::makeSlotPath(int saveSlotNumber) {
     string filePath = this->filePath;
     return filePath.append(saveFileName[saveSlotNumber]);
 }
 
-void UserDataManagement::loadData(int saveSlotNumber){ //path + file name
+void UserDataManagement::loadData(int saveSlotNumber) { // path + file name
     loadSave(makeSlotPath(saveSlotNumber));
 }
 
@@ -24,11 +25,13 @@ void UserDataManagement::loadSave(string filePath) {
     }
 }
 
-void UserDataManagement::saveData(dataType &userData, double userTime, int saveSlotNumber){
+void UserDataManagement::saveData(dataType &userData, double userTime,
+                                  int saveSlotNumber) {
     saveData(userData, userTime, makeSlotPath(saveSlotNumber));
 }
 
-void UserDataManagement::saveData(dataType &userData, double userTime, string filePath) {
+void UserDataManagement::saveData(dataType &userData, double userTime,
+                                  string filePath) {
     int fd = openFile(filePath, O_CREAT | O_TRUNC | O_WRONLY);
     if (write(fd, &userData, sizeof(userData)) == -1) {
         perror("write() error");
@@ -47,11 +50,11 @@ int UserDataManagement::openFile(string filePath, int flags) {
     return fd;
 }
 
-void UserDataManagement::loadData(dataType &sudokuSource, double &timeSource){
+void UserDataManagement::loadData(dataType &sudokuSource, double &timeSource) {
     sudokuSource = this->userData;
     timeSource = this->userTime;
 }
 
-UserDataManagement::~UserDataManagement(){
-    //delete saveFileName;
+UserDataManagement::~UserDataManagement() {
+    // delete saveFileName;
 }
