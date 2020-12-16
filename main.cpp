@@ -39,8 +39,7 @@ int main2() {
     printTitle();
     getch();
     system("clear");
-    while (1) {
-        switch (printMainMenu()) {
+    switch (printMainMenu()) {
         case SelectedMenu::NEW_START: {
             system("clear");
             sud.printBoard();
@@ -72,14 +71,13 @@ int main2() {
             break;
         }
         case SelectedMenu::LOAD_SAVE:
-            //data.loadData(sud, timeLeft);
+            data.loadData(sud, timeLeft);
             break;
 
         case SelectedMenu::EXIT:
             exit(0);
             break;
         }
-    }
     return 0;
 }
 
