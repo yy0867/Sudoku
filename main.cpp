@@ -1,5 +1,6 @@
 #include "ConsoleCursor.cpp"
 #include "Frame.cpp"
+#include "IngameMenu.cpp"
 #include "MainMenu.cpp"
 #include "MainTitle.cpp"
 #include "MenuFrame.cpp"
@@ -22,7 +23,6 @@ const int p_key = 112; // p button value
 bool exit_flag = false;
 
 void signalHandler(int signum);
-void printFrameInGameMenu();
 
 int main() {
     // random setting
@@ -84,11 +84,4 @@ void signalHandler(int signum) {
         while (get_key() != p_key) {
         }
     } // pause timeattack by pushing p button
-}
-
-void printFrameInGameMenu() {
-    printFrame(30, -5, 18, 1, 94);         // Time box
-    printFrame(30, 0, 18, 1, 94, "RESET"); // reset function box
-    printFrame(30, 5, 18, 1, 94, "SAVE");  // save function box
-    printFrame(30, 10, 18, 1, 94, "MENU"); // return to menu function box
 }
