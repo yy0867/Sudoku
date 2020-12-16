@@ -95,12 +95,13 @@ int main() {
             }
             break;
         }
-        case SelectedMenu::LOAD_SAVE:
+        case SelectedMenu::LOAD_SAVE:{
+            //SelectedSaveSlot saveSlot = printSaveSlot();
             data.loadData(sud, time, 0);
             is_loaded = true;
             *shmaddr = time;
             break;
-
+        }
         case SelectedMenu::EXIT:
             destroy_sem();
             shm_detach(shmaddr);

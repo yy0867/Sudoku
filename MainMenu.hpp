@@ -13,8 +13,10 @@
 #define MENU_CURSOR_COLOR CUSTOM_FONT_COLOR
 
 enum class SelectedMenu {NEW_START, LOAD_SAVE, EXIT};
+enum SelectedSaveSlot {SLOT_0, SLOT_1, SLOT_2};
 
 void printMainMenu(int xOffset, int yOffset);
+void printSaveSlot(int xOffset, int yOffset);
 SelectedMenu printMainMenu();
 
 #endif
