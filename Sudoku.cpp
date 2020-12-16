@@ -4,6 +4,7 @@
 #include "string"
 #include "timeattack.hpp"
 #include "getkey.hpp"
+#include "Sync.hpp"
 #include <cstdlib>
 #include <ctime>
 #include <unistd.h>
@@ -292,8 +293,10 @@ void Sudoku::moveCursor() {
         printColorCursor(x, y, 7, convertNumberToFullChar(num));
     else
         printColorCursor(x, y, 7, "  ");
+    lock_sem();
     gotoxy(50 + X_PADDING, 0);
     moveCursor(get_key());
+    unlock_sem();
 }
 
 void Sudoku::moveCursor(int key) {
@@ -389,9 +392,6 @@ void Sudoku::moveCursor(int key) {
         if (is_inMenu == true) {
             if (current_menu == 0) {
                 // pause time
-                gotoxy(20, 30);
-                cout << getTimePid() << endl;
-
                 kill(getTimePid(), SIGSTOP);
                 while(get_key() != KEY_ENTER) {}
                 kill(getTimePid(), SIGCONT);

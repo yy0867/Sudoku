@@ -8,6 +8,7 @@
 #include "UserDataManagement.cpp"
 #include "getkey.cpp"
 #include "timeattack.cpp"
+#include "Sync.cpp"
 
 #include <cstdlib>
 #include <ctime>
@@ -35,6 +36,12 @@ int main() {
     // signal(SIGTSTP, signalHandler);
     Sudoku sud;
     UserDataManagement data;
+
+    // create Semaphore
+    if(creat_sem() == -1) {
+        perror("semaphore create error!");
+        exit(0);
+    }
 
     printTitle();
     getch();
@@ -79,6 +86,8 @@ int main() {
             break;
 
         case SelectedMenu::EXIT:
+            destroy_sem();
+            system("clear");
             exit(0);
             break;
         }
