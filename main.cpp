@@ -5,9 +5,10 @@
 #include "MainTitle.cpp"
 #include "MenuFrame.cpp"
 #include "Sudoku.cpp"
+#include "UserDataManagement.cpp"
 #include "getkey.cpp"
 #include "timeattack.cpp"
-#include "UserDataManagement.cpp"
+#include "Sync.cpp"
 
 #include <cstdlib>
 #include <ctime>
@@ -32,15 +33,30 @@ int main2() {
     system("clear");
 
     signal(SIGINT, signalHandler);
-    //signal(SIGTSTP, signalHandler);
+    // signal(SIGTSTP, signalHandler);
     Sudoku sud;
     UserDataManagement data(sud, timeLeft);
+
+    // create Semaphore
+    if(creat_sem() == -1) {
+        perror("semaphore create error!");
+        exit(0);
+    }
 
     printTitle();
     getch();
     system("clear");
-    switch (printMainMenu()) {
+    while (1) {
+        SelectedMenu sel;
+        if (sud.resetflag == true) {
+            sel = SelectedMenu::NEW_START;
+            sud = Sudoku();
+        } else {
+            sel = printMainMenu();
+        }
+        switch (sel) {
         case SelectedMenu::NEW_START: {
+            sud.resetflag = false;
             system("clear");
             sud.printBoard();
             pid_t pid = 0;
@@ -55,18 +71,13 @@ int main2() {
                 setTimePid(pid);
                 while (1) {
                     sud.moveCursor();
-                    if (sud.out == true) {
+                    if (sud.endflag == true) {
                         kill(pid, SIGKILL);
                         system("clear");
-                        sud.out = false;
-                        data.saveData(0);
+                        sud.endflag = false;
                         break;
                     }
                 }
-                /*if (sud.is_reset == true) {
-                    sud.is_reset = false;
-                    newgame();
-                }*/
             }
             break;
         }
@@ -75,6 +86,8 @@ int main2() {
             break;
 
         case SelectedMenu::EXIT:
+            destroy_sem();
+            system("clear");
             exit(0);
             break;
         }
@@ -118,34 +131,34 @@ void signalHandler(int signum) {
     //      }
     // } // pause timeattack by pushing p button
 }
-void newgame() {
-    srand(time(NULL));
-    system("clear");
+// void newgame() {
+//     srand(time(NULL));
+//     system("clear");
 
-    Sudoku sud;
-    sud.printBoard();
-    pid_t pid = 0;
-    double time = 100;
-    printFrameInGameMenu();
+//     Sudoku sud;
+//     sud.printBoard();
+//     pid_t pid = 0;
+//     double time = 100;
+//     printFrameInGameMenu();
 
-    pid = fork(); // make child process
-    if (pid == 0) {
-        measure_time(getppid(), time);
-        // if (get_key() == p_key) {
-        //     kill(pid, SIGTSTP);
-        // }
-    } else {
-        while (1) {
-            sud.moveCursor();
-            if (sud.out == true) {
-                kill(pid, SIGKILL);
-                system("clear");
-                sud.out = false;
-                break;
-            }
-        }
-        if (sud.is_reset == true) {
-            newgame();
-        }
-    }
-}
+//     pid = fork(); // make child process
+//     if (pid == 0) {
+//         measure_time(getppid(), time);
+//         // if (get_key() == p_key) {
+//         //     kill(pid, SIGTSTP);
+//         // }
+//     } else {
+//         while (1) {
+//             sud.moveCursor();
+//             if (sud.out == true) {
+//                 kill(pid, SIGKILL);
+//                 system("clear");
+//                 sud.out = false;
+//                 break;
+//             }
+//         }
+//         if (sud.is_reset == true) {
+//             newgame();
+//         }
+//     }
+// }

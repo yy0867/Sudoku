@@ -11,4 +11,5 @@ void measure_time(pid_t pid, double time);
 double getTimeLeft();
 pid_t getTimePid() { return timePid; }
 void setTimePid(pid_t pid) { timePid = pid; }
+
 #endif

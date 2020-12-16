@@ -2,7 +2,9 @@
 
 using namespace std;
 
-void gotoxy(int x, int y) { cout << "\033[" << y << ";" << x << "f" << flush; }
+void gotoxy(int x, int y) { 
+    cout << "\033[" << y << ";" << x << "f" << flush; 
+}
 
 void printColorCursor(int x, int y, string multiColor, const string str) {
     gotoxy(x, y);
