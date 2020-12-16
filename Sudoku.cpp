@@ -286,9 +286,7 @@ void Sudoku::printBoard() const {
             }
         }
     }
-    lock_sem();
     gotoxy(X_PADDING, 15);
-    unlock_sem();
 }
 
 void Sudoku::moveCursor() {
