@@ -375,15 +375,15 @@ void Sudoku::moveCursor(int key) {
                 // pause time
             } else if (current_menu == 1) {
                 // reset
-                out = true;
-                is_reset = true;
+                endflag = true;
+                resetflag = true;
                 is_inMenu = false;
                 current_menu = 0;
             } else if (current_menu == 2) {
                 // save
             } else {
                 // return to menu
-                out = true;
+                endflag = true;
                 is_inMenu = false;
                 current_menu = 0;
             }
