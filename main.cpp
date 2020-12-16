@@ -4,11 +4,12 @@
 #include "MainMenu.cpp"
 #include "MainTitle.cpp"
 #include "MenuFrame.cpp"
+#include "ShareData.cpp"
 #include "Sudoku.cpp"
+#include "Sync.cpp"
 #include "UserDataManagement.cpp"
 #include "getkey.cpp"
 #include "timeattack.cpp"
-#include "Sync.cpp"
 
 #include <cstdlib>
 #include <ctime>
@@ -38,10 +39,11 @@ int main2() {
     UserDataManagement data(sud, timeLeft);
 
     // create Semaphore
-    if(creat_sem() == -1) {
+    if (creat_sem() == -1) {
         perror("semaphore create error!");
         exit(0);
     }
+    shm_init();
 
     printTitle();
     getch();
