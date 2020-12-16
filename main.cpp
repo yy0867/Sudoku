@@ -46,7 +46,12 @@ int main() {
     }
     shm_init();
 
+
+    double time = 100;
+    //data.loadData(sud, time, 0);
+
     double *shmaddr = NULL;
+    bool is_loaded = false;
     shmaddr = shm_attach();
     printTitle();
     getch();
@@ -56,18 +61,21 @@ int main() {
         if (sud.resetflag == true) {
             sel = SelectedMenu::NEW_START;
             sud = Sudoku();
+            time = 100;
         } else {
             sel = printMainMenu();
         }
         switch (sel) {
         case SelectedMenu::NEW_START: {
+            if(!is_loaded) 
+                sud = Sudoku();
+            else 
+                is_loaded = false;
             sud.resetflag = false;
             system("clear");
 
 
             pid_t pid = 0;
-            double time = 100;
-            data.loadData(sud, time, 0);
             sud.printBoard();
             //time = data.userTime;
             printFrameInGameMenu();
@@ -80,7 +88,6 @@ int main() {
                 setTimePid(pid);
                 while (1) {
                     sud.moveCursor();
-                    data.saveData(sud, *shmaddr, 0);
                     if (sud.endflag == true) {
                         kill(pid, SIGKILL);
                         system("clear");
@@ -92,7 +99,9 @@ int main() {
             break;
         }
         case SelectedMenu::LOAD_SAVE:
-            //data.loadData(sud, timeLeft, 0);
+            data.loadData(sud, time, 0);
+            is_loaded = true;
+            *shmaddr = time;
             break;
 
         case SelectedMenu::EXIT:

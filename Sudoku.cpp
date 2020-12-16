@@ -4,6 +4,7 @@
 #include "string"
 #include "timeattack.hpp"
 #include "getkey.hpp"
+#include "UserDataManagement.hpp"
 #include "Sync.hpp"
 #include <cstdlib>
 #include <ctime>
@@ -15,6 +16,7 @@ using namespace std;
 
 bool is_inMenu = false;
 int current_menu = 0;
+double *sharedtime = NULL;
 
 /*//Replace to ConsoleCursor
 void gotoxy(int x, int y) {
@@ -403,6 +405,10 @@ void Sudoku::moveCursor(int key) {
                 current_menu = 0;
             } else if (current_menu == 2) {
                 // save
+                UserDataManagement save_data;
+                sharedtime = shm_attach();
+                save_data.saveData(*this, *sharedtime, 0);
+                shm_detach(sharedtime);
             } else {
                 // return to menu
                 endflag = true;
