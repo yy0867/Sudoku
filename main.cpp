@@ -116,12 +116,17 @@ int main() {
 void signalHandler(int signum) {
     if (signum == SIGINT) {
         //cout << "Exit!" << endl;
+        kill(getTimePid(), SIGTERM);
+        destroy_sem();
+        system("clear");
         printGameOver();
+        destroy_sem();
         get_key();
         system("clear");
         exit(1); // change exit to UI
     } else if(signum == SIGUSR1) {
-        kill(getTimePid(), SIGKILL);
+        kill(getTimePid(), SIGTERM);
+        destroy_sem();
         system("clear");
         printGameClear();
         get_key();
