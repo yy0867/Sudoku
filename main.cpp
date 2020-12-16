@@ -46,7 +46,7 @@ int main() {
 
             pid = fork(); // make child process
             if (pid == 0) {
-                measure_time(getpid(), time);
+                measure_time(getppid(), time);
                 // if (get_key() == p_key) {
                 //     kill(pid, SIGTSTP);
                 // }
