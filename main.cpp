@@ -63,10 +63,10 @@ int main() {
                         break;
                     }
                 }
-                if (sud.is_reset == true) {
+                /*if (sud.is_reset == true) {
                     sud.is_reset = false;
                     newgame();
-                }
+                }*/
             }
             break;
         }

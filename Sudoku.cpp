@@ -63,7 +63,7 @@ Sudoku::Sudoku(int level) {
                                : sudoku[i][j] = sudoku[i - 3][j] + 1;
 
     // randomize basic sudoku
-    randomize_sudoku();
+    //randomize_sudoku();
     make_blank(level);
 }
 
@@ -156,7 +156,7 @@ bool Sudoku::value_possible(const int row, const int column,
 
     // check square
     for (int i = sq_row; i < sq_row + 3; i++) {
-        for (int j = sq_col; j < sq_row + 3; j++) {
+        for (int j = sq_col; j < sq_col + 3; j++) {
             if (i == row && j == column)
                 continue;
             if (sudoku[i][j] == num)
