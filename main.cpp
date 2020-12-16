@@ -25,8 +25,9 @@ bool exit_flag = false;
 
 void signalHandler(int signum);
 void newgame();
+int main2(Sudoku &sud);
 
-int main2() {
+int main() {
     // random setting
     srand(time(NULL));
     system("clear");
@@ -34,17 +35,23 @@ int main2() {
     signal(SIGINT, signalHandler);
     //signal(SIGTSTP, signalHandler);
     Sudoku sud;
-    UserDataManagement data(sud, timeLeft);
+    UserDataManagement data(sud, getTimeLeft());
 
     printTitle();
     getch();
     system("clear");
     switch (printMainMenu()) {
-        case SelectedMenu::NEW_START: {
+        case SelectedMenu::NEW_START: {//TEST
+
             system("clear");
+
+            gotoxy(0, 22);
             sud.printBoard();
             pid_t pid = 0;
             double time = 100;
+            data.loadData(sud, time, 0);
+            //time = data.userTime;
+            cout << time << "yasking" << endl;
             printFrameInGameMenu();
 
             pid = fork(); // make child process
@@ -55,11 +62,15 @@ int main2() {
                 setTimePid(pid);
                 while (1) {
                     sud.moveCursor();
+                    //main2(sud);
+                    data.saveData(sud, getTimeLeft(), 0);//t
+                    //main2(data.userData);
                     if (sud.out == true) {
                         kill(pid, SIGKILL);
                         system("clear");
                         sud.out = false;
-                        data.saveData(0);
+
+                        //cout << "saved" << endl;
                         break;
                     }
                 }
@@ -71,7 +82,7 @@ int main2() {
             break;
         }
         case SelectedMenu::LOAD_SAVE:
-            data.loadData(sud, timeLeft);
+            //data.loadData(sud, timeLeft, 0);
             break;
 
         case SelectedMenu::EXIT:
@@ -81,11 +92,8 @@ int main2() {
     return 0;
 }
 
-int main() {
-    system("clear");
-    Sudoku sud;
-    sud.printBoard();
-    gotoxy(0, 22);
+int main2(Sudoku &sud) {
+    gotoxy(0, 25);
     for (int i = 0; i < 9; i++)
     {
         for (int j = 0; j < 9; j++)
@@ -104,6 +112,7 @@ int main() {
     // int t = system("clear");
 
     // cout << printMainMenu() << endl;
+    gotoxy(0, 0);
     return 0;
 }
 

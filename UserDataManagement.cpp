@@ -1,6 +1,6 @@
 #include "UserDataManagement.hpp"
 
-UserDataManagement::UserDataManagement(dataType &presentSudoku, double &presentTime, string filePath){
+UserDataManagement::UserDataManagement(dataType presentSudoku, double presentTime, string filePath){
     this->userTime = presentTime;
     this->userData = presentSudoku;
     this->filePath = filePath;
@@ -26,24 +26,31 @@ void UserDataManagement::loadSave(string filePath) {
     }
 }
 
+void UserDataManagement::loadData(dataType &sudokuSource, double &timeSource, int saveSlotNumber){
+    loadData(saveSlotNumber);
+    sudokuSource = this->userData;
+    timeSource = this->userTime;
+}
+
+/*
 void UserDataManagement::saveData(dataType &userData, double userTime, int saveSlotNumber){
     saveData(userData, userTime, makeSlotPath(saveSlotNumber));
 }
+*/
 
-void UserDataManagement::saveData(dataType &userData, double userTime, string filePath) {
-    int fd = openFile(filePath, O_CREAT | O_TRUNC | O_WRONLY);
-    if (write(fd, &userData, sizeof(userData)) == -1) {
+/*
+void UserDataManagement::saveData() {
+    int fd = openFile(this->filePath, O_CREAT | O_TRUNC | O_WRONLY);
+    if (write(fd, &this->userData, sizeof(userData)) == -1) {
         perror("write() error");
     }
-    if (write(fd, &userTime, sizeof(double)) == -1) {
+    if (write(fd, &this->userTime, sizeof(double)) == -1) {
         perror("write() error");
     }
     close(fd);
 }
+*/
 
-void UserDataManagement::saveData(int saveSlotNumber){
-    saveData(this->userData, this->userTime, saveSlotNumber);
-}
 
 int UserDataManagement::openFile(string filePath, int flags) {
     int fd = open(filePath.c_str(), flags, 0777);
@@ -53,11 +60,31 @@ int UserDataManagement::openFile(string filePath, int flags) {
     return fd;
 }
 
-void UserDataManagement::loadData(dataType &sudokuSource, double &timeSource){
-    sudokuSource = this->userData;
-    timeSource = this->userTime;
-}
 
 UserDataManagement::~UserDataManagement(){
     //delete saveFileName;
 }
+
+
+/*void UserDataManagement::saveData(int saveSlotNumber){//p
+    //saveData(this->userData, this->userTime, saveSlotNumber);
+    saveData(this->userData, this->userTime, makeSlotPath(saveSlotNumber));
+}*/
+
+
+
+void UserDataManagement::saveData(dataType userData, double userTime, int saveSlotNumber) {
+     int fd = openFile(makeSlotPath(saveSlotNumber), O_CREAT | O_TRUNC | O_WRONLY);
+    if (write(fd, &userData, sizeof(userData)) == -1) {
+        perror("write() error");
+    }
+    if (write(fd, &userTime, sizeof(double)) == -1) {
+        perror("write() error");
+    }
+    close(fd);
+}
+/*
+void UserDataManagement::saveData(dataType &userData, double userTime, string filePath){
+
+}
+*/

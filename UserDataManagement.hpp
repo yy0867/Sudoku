@@ -17,23 +17,31 @@ class UserDataManagement {
   private:
     string filePath;
     string saveFileName[3] = {"sudoku_save_0", "sudoku_save_1", "sudoku_save_2"};
-    dataType userData;
-    double userTime;
+
 
     int openFile(string filePath, int flags);
     string makeSlotPath(int saveSlotNumber);
     void loadSave(string filePath);
-    void loadData(int saveSlotNumber);
+    //void loadData(int saveSlotNumber);
 
-    void saveData(dataType &userData, double userTime, string filePath);
-    void saveData(dataType &userData, double userTime, int saveSlotNumber);
+
+
 
   public:
-    UserDataManagement(dataType &presentSudoku, double &presentTime, string filePath = "./Save/");
+    dataType userData;
+    double userTime;
+    UserDataManagement(dataType presentSudoku, double presentTime, string filePath = "./Save/");
     ~UserDataManagement();
+    //void saveData();
 
-    void saveData(int saveSlotNumber);
-    void loadData(dataType &sudokuSource, double &timeSource);
+
+    void saveData(dataType userData, double userTime, int saveSlotNumber);
+    //void saveData(int saveSlotNumber);
+    void loadData(dataType &sudokuSource, double &timeSource, int saveSlotNumber);
+    void loadData(int saveSlotNumber);
     //dataType &getData();
     //int getTime();
+
+    //void saveData(dataType userData, double userTime); //bring data
+    //void saveData(dataType &userData, double userTime, string filePath);
 };
