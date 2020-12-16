@@ -35,7 +35,7 @@ int main() {
     system("clear");
 
     signal(SIGINT, signalHandler);
-    // signal(SIGTSTP, signalHandler);
+    signal(SIGUSR1, signalHandler);
     Sudoku sud;
     UserDataManagement data;
 
@@ -118,10 +118,14 @@ void signalHandler(int signum) {
         printGameOver();
         get_key();
         system("clear");
-        kill(getTimePid(), SIGINT);
+        exit(1); // change exit to UI
+    } else if(signum == SIGUSR1) {
+        kill(getTimePid(), SIGKILL);
+        system("clear");
         printGameClear();
         get_key();
-        exit(1); // change exit to UI
+        system("clear");
+        exit(1);
     }
     // else if (signum == SIGTSTP) {
     //      while (get_key() != p_key) {

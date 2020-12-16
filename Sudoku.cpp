@@ -68,7 +68,7 @@ Sudoku::Sudoku(int level) {
                                : sudoku[i][j] = sudoku[i - 3][j] + 1;
 
     // randomize basic sudoku
-    //randomize_sudoku();
+    randomize_sudoku();
     make_blank(level);
 }
 
@@ -545,5 +545,5 @@ void Sudoku::is_finish() const {
                 return;
         }
     }
-    kill(getpid(), SIGINT);
+    kill(getpid(), SIGUSR1);
 }
