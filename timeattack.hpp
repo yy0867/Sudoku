@@ -6,7 +6,7 @@
 #include <unistd.h>
 
 void measure_time(pid_t pid, double time);
-double getTimeLeft() { return timeLeft; }
+double getTimeLeft();
 pid_t getTimePid() { return getpid(); }
 
 #endif

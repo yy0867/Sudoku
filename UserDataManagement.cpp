@@ -1,6 +1,8 @@
 #include "UserDataManagement.hpp"
 
-UserDataManagement::UserDataManagement(string filePath){ //  filePath must end /
+UserDataManagement::UserDataManagement(dataType &presentSudoku, double &presentTime, string filePath){
+    this->userTime = presentTime;
+    this->userData = presentSudoku;
     this->filePath = filePath;
     mkdir(filePath.c_str(), 0777);
 }
@@ -37,6 +39,10 @@ void UserDataManagement::saveData(dataType &userData, double userTime, string fi
         perror("write() error");
     }
     close(fd);
+}
+
+void UserDataManagement::saveData(int saveSlotNumber){
+    saveData(this->userData, this->userTime, saveSlotNumber);
 }
 
 int UserDataManagement::openFile(string filePath, int flags) {

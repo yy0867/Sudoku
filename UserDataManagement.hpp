@@ -29,9 +29,10 @@ class UserDataManagement {
     void saveData(dataType &userData, double userTime, int saveSlotNumber);
 
   public:
-    UserDataManagement(string filePath  = "./Save/");
+    UserDataManagement(dataType &presentSudoku, double &presentTime, string filePath = "./Save/");
     ~UserDataManagement();
 
+    void saveData(int saveSlotNumber);
     void loadData(dataType &sudokuSource, double &timeSource);
     //dataType &getData();
     //int getTime();

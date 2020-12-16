@@ -33,7 +33,7 @@ int main() {
     signal(SIGINT, signalHandler);
     signal(SIGTSTP, signalHandler);
     Sudoku sud;
-    UserDataManagement data;
+    UserDataManagement data(sud, timeLeft);
 
     printTitle();
     getch();
@@ -60,6 +60,7 @@ int main() {
                         kill(pid, SIGKILL);
                         system("clear");
                         sud.out = false;
+                        data.saveData(0);
                         break;
                     }
                 }
