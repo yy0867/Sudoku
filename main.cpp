@@ -47,15 +47,16 @@ int main() {
         pid = fork(); // make child process
         if (pid == 0) {
             measure_time(getpid(), time);
-            if (get_key() == p_key) {
-                kill(pid, SIGTSTP);
-            }
+            // if (get_key() == p_key) {
+            //     kill(pid, SIGTSTP);
+            // }
         } else {
             while (1) {
                 sud.moveCursor();
             }
             break;
         }
+        break;
     }
     case SelectedMenu::LOAD_SAVE:
         cout << endl;
@@ -80,8 +81,9 @@ void signalHandler(int signum) {
         system("clear");
         cout << "Exit!" << endl;
         exit(1); // change exit to UI
-    } else if (signum == SIGTSTP) {
-        while (get_key() != p_key) {
-        }
-    } // pause timeattack by pushing p button
+    }
+    // else if (signum == SIGTSTP) {
+    //     while (get_key() != p_key) {
+    //     }
+    // } // pause timeattack by pushing p button
 }

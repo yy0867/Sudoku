@@ -2,6 +2,9 @@
 #include "ConsoleCursor.hpp"
 #include "Frame.hpp"
 #include "string"
+#include "timeattack.hpp"
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
@@ -363,6 +366,35 @@ void Sudoku::moveCursor(int key) {
             } else if (isCursorPossible(x - 3, y)) {
                 x -= 3;
                 column--;
+            }
+        }
+        break;
+    case KEY_ENTER:
+        if (is_inMenu == true) {
+            if (current_menu == 0) {
+                // pause time
+            } else if (current_menu == 1) {
+                // reset
+                srand(time(NULL));
+                system("clear");
+                printBoard();
+                // pid_t pid = 0;
+                // double time = 100;
+                // printFrameInGameMenu();
+
+                // pid = fork(); // make child process
+                // if (pid == 0) {
+                //     measure_time(getpid(), time);
+                // } else {
+                //     while (1) {
+                //         moveCursor();
+                //     }
+                //     break;
+                // }
+            } else if (current_menu == 2) {
+                // save
+            } else {
+                // return to menu
             }
         }
         break;
