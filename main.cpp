@@ -125,7 +125,9 @@ int main() {
 void signalHandler(int signum) {
     if (signum == SIGINT) {
         system("clear");
-        cout << "Exit!" << endl;
+        kill(getTimePid(), SIGINT);
+        printGameClear();
+        get_key();
         exit(1); // change exit to UI
     }
     // else if (signum == SIGTSTP) {

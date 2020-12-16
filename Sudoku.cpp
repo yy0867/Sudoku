@@ -68,7 +68,7 @@ Sudoku::Sudoku(int level) {
                                : sudoku[i][j] = sudoku[i - 3][j] + 1;
 
     // randomize basic sudoku
-    randomize_sudoku();
+    //randomize_sudoku();
     make_blank(level);
 }
 
@@ -301,11 +301,7 @@ void Sudoku::moveCursor() {
     gotoxy(50 + X_PADDING, 0);
     moveCursor(get_key());
     unlock_sem();
-    if(is_finish()) {
-        printGameClear();
-        get_key();
-        exit(0);
-    }
+    is_finish();
 }
 
 void Sudoku::moveCursor(int key) {
@@ -542,12 +538,12 @@ void Sudoku::swap_number(int first, int second) {
     }
 }
 
-bool Sudoku::is_finish() const {
+void Sudoku::is_finish() const {
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {
             if(sudoku[i][j] == 0) 
-                return false;
+                return;
         }
     }
-    return true;
+    kill(getpid(), SIGINT);
 }
