@@ -397,6 +397,7 @@ void Sudoku::moveCursor(int key) {
                 kill(getTimePid(), SIGSTOP);
                 while(get_key() != KEY_ENTER) {}
                 kill(getTimePid(), SIGCONT);
+                printPause();
             } else if (current_menu == 1) {
                 // reset
                 endflag = true;
