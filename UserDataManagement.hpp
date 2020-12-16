@@ -32,7 +32,7 @@ class UserDataManagement {
     UserDataManagement(string filePath  = "./Save/");
     ~UserDataManagement();
 
-    void loadData(dataType& sudokuSource, int& timeSource);
+    void loadData(dataType &sudokuSource, double &timeSource);
     //dataType &getData();
     //int getTime();
 };

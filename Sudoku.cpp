@@ -2,6 +2,9 @@
 #include "ConsoleCursor.hpp"
 #include "Frame.hpp"
 #include "string"
+#include "timeattack.hpp"
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
@@ -374,12 +377,41 @@ void Sudoku::moveCursor(int key) {
             }
         }
         break;
+    case KEY_ENTER:
+        if (is_inMenu == true) {
+            if (current_menu == 0) {
+                // pause time
+            } else if (current_menu == 1) {
+                // reset
+                srand(time(NULL));
+                system("clear");
+                printBoard();
+                // pid_t pid = 0;
+                // double time = 100;
+                // printFrameInGameMenu();
+
+                // pid = fork(); // make child process
+                // if (pid == 0) {
+                //     measure_time(getpid(), time);
+                // } else {
+                //     while (1) {
+                //         moveCursor();
+                //     }
+                //     break;
+                // }
+            } else if (current_menu == 2) {
+                // save
+            } else {
+                // return to menu
+                out = true;
+            }
+        }
+        break;
     case KEY_DELETE:
         remove(row, column);
         break;
     }
 }
-
 /* Alternated
 char *Sudoku::convertNumberToFullChar(int num) const { // input 0 ~ 9
 integer char fullNum[] = "０"; fullNum[2] += num; char *result = fullNum;

@@ -47,7 +47,7 @@ int UserDataManagement::openFile(string filePath, int flags) {
     return fd;
 }
 
-void UserDataManagement::loadData(dataType &sudokuSource, int &timeSource){
+void UserDataManagement::loadData(dataType &sudokuSource, double &timeSource){
     sudokuSource = this->userData;
     timeSource = this->userTime;
 }

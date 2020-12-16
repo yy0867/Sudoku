@@ -1,5 +1,6 @@
 #include "ConsoleCursor.cpp"
 #include "Frame.cpp"
+#include "IngameMenu.cpp"
 #include "MainMenu.cpp"
 #include "MainTitle.cpp"
 #include "MenuFrame.cpp"
@@ -23,7 +24,6 @@ const int p_key = 112; // p button value
 bool exit_flag = false;
 
 void signalHandler(int signum);
-void printFrameInGameMenu();
 
 int main() {
     // random setting
@@ -33,45 +33,48 @@ int main() {
     signal(SIGINT, signalHandler);
     signal(SIGTSTP, signalHandler);
     Sudoku sud;
-    UserDataManagement udm;
-    //udm.saveData(sud, 0);
-    //sud = udm.loadData(0);
+    UserDataManagement data;
+
     printTitle();
     getch();
     system("clear");
+    while (1) {
+        switch (printMainMenu()) {
+        case SelectedMenu::NEW_START: {
+            system("clear");
+            sud.printBoard();
+            pid_t pid = 0;
+            double time = 100;
+            printFrameInGameMenu();
 
-    switch (printMainMenu()) {
-    case SelectedMenu::NEW_START: {
-        system("clear");
-        sud.printBoard();
-        pid_t pid = 0;
-        double time = 100;
-        printFrameInGameMenu();
-
-        pid = fork(); // make child process
-        if (pid == 0) {
-            measure_time(getpid(), time);
-            if (get_key() == p_key) {
-                kill(pid, SIGTSTP);
-            }
-        } else {
-            while (1) {
-                sud.moveCursor();
-                //udm.saveData(sud, 0);
+            pid = fork(); // make child process
+            if (pid == 0) {
+                measure_time(getppid(), time);
+                // if (get_key() == p_key) {
+                //     kill(pid, SIGTSTP);
+                // }
+            } else {
+                while (1) {
+                    sud.moveCursor();
+                    if (sud.out == true) {
+                        kill(pid, SIGKILL);
+                        system("clear");
+                        sud.out = false;
+                        break;
+                    }
+                }
             }
             break;
         }
-        break;
-    }
-    case SelectedMenu::LOAD_SAVE:
-        //sud = udm.loadData(0);
-        break;
+        case SelectedMenu::LOAD_SAVE:
+            data.loadData(sud, timeLeft);
+            break;
 
-    case SelectedMenu::EXIT:
-        exit(0);
-        break;
+        case SelectedMenu::EXIT:
+            exit(0);
+            break;
+        }
     }
-
     return 0;
 }
 
@@ -87,15 +90,9 @@ void signalHandler(int signum) {
         system("clear");
         cout << "Exit!" << endl;
         exit(1); // change exit to UI
-    } else if (signum == SIGTSTP) {
-        while (get_key() != p_key) {
-        }
-    } // pause timeattack by pushing p button
-}
-
-void printFrameInGameMenu() {
-    printFrame(30, -5, 18, 1, 94);         // Time box
-    printFrame(30, 0, 18, 1, 94, "RESET"); // reset function box
-    printFrame(30, 5, 18, 1, 94, "SAVE");  // save function box
-    printFrame(30, 10, 18, 1, 94, "MENU"); // return to menu function box
+    }
+    // else if (signum == SIGTSTP) {
+    //     while (get_key() != p_key) {
+    //     }
+    // } // pause timeattack by pushing p button
 }
