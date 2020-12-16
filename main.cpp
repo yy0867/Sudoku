@@ -6,6 +6,7 @@
 #include "Sudoku.cpp"
 #include "getkey.cpp"
 #include "timeattack.cpp"
+#include "UserDataManagement.cpp"
 
 #include <cstdlib>
 #include <ctime>
@@ -32,6 +33,9 @@ int main() {
     signal(SIGINT, signalHandler);
     signal(SIGTSTP, signalHandler);
     Sudoku sud;
+    UserDataManagement udm;
+    //udm.saveData(sud, 0);
+    //sud = udm.loadData(0);
     printTitle();
     getch();
     system("clear");
@@ -53,16 +57,17 @@ int main() {
         } else {
             while (1) {
                 sud.moveCursor();
+                //udm.saveData(sud, 0);
             }
             break;
         }
+        break;
     }
     case SelectedMenu::LOAD_SAVE:
-        cout << endl;
+        //sud = udm.loadData(0);
         break;
 
     case SelectedMenu::EXIT:
-        cout << endl;
         exit(0);
         break;
     }
@@ -74,6 +79,7 @@ int main2() {
     // int t = system("clear");
 
     // cout << printMainMenu() << endl;
+    return 0;
 }
 
 void signalHandler(int signum) {

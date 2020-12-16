@@ -9,6 +9,8 @@
 #define MENU_HEIGHT 3
 #define MENU_TERM 2
 #define MENU_NUMBER 3
+#define MENU_COLOR CUSTOM_FONT_COLOR
+#define MENU_CURSOR_COLOR CUSTOM_FONT_COLOR
 
 enum class SelectedMenu {NEW_START, LOAD_SAVE, EXIT};
 

@@ -8,7 +8,7 @@ SelectedMenu printMainMenu(){
     yOffset = 3 - Y_PADDING;
 
     printMainMenu(xOffset, yOffset);
-    printFrameCursor(xOffset - 1, yOffset - 1, MENU_WIDTH + 2, MENU_HEIGHT + 2, DEFAULT_FONT_COLOR);
+    printFrameCursor(xOffset - 1, yOffset - 1, MENU_WIDTH + 2, MENU_HEIGHT + 2, MENU_CURSOR_COLOR);
     while (key != KEY_ENTER){
         key = get_key();
         switch (key){
@@ -17,7 +17,7 @@ SelectedMenu printMainMenu(){
                     removeFrame(xOffset - 1, yOffset - 1 + menuIndex*(MENU_HEIGHT + 2 + MENU_TERM),
                     MENU_WIDTH + 2, MENU_HEIGHT + 2);
                     printFrameCursor(xOffset - 1, yOffset - 1 + ++menuIndex*(MENU_HEIGHT + 2 + MENU_TERM),
-                    MENU_WIDTH + 2, MENU_HEIGHT + 2, DEFAULT_FONT_COLOR);
+                    MENU_WIDTH + 2, MENU_HEIGHT + 2, MENU_CURSOR_COLOR);
                 }
                 break;
 
@@ -26,7 +26,7 @@ SelectedMenu printMainMenu(){
                     removeFrame(xOffset - 1, yOffset - 1 + menuIndex*(MENU_HEIGHT + 2 + MENU_TERM),
                     MENU_WIDTH + 2, MENU_HEIGHT + 2);
                     printFrameCursor(xOffset - 1, yOffset - 1 + --menuIndex*(MENU_HEIGHT + 2 + MENU_TERM),
-                    MENU_WIDTH + 2, MENU_HEIGHT + 2, DEFAULT_FONT_COLOR);
+                    MENU_WIDTH + 2, MENU_HEIGHT + 2, MENU_CURSOR_COLOR);
                 }
                 break;
         }
@@ -37,5 +37,5 @@ SelectedMenu printMainMenu(){
 
 void printMainMenu(int xOffset, int yOffset){
     vector<string> menuList = {"New Start", "Load Data", "Exit"};
-    printMenu(xOffset, yOffset, MENU_WIDTH, MENU_HEIGHT, DEFAULT_FONT_COLOR, MENU_TERM, menuList);
+    printMenu(xOffset, yOffset, MENU_WIDTH, MENU_HEIGHT, MENU_COLOR, MENU_TERM, menuList);
 }

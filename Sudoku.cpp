@@ -257,10 +257,18 @@ void Sudoku::printBoard() const {
                 rowFrame++;
             }
             if (sudoku[column][row]) {
-                printColorCursor(row * 2 + rowFrame + X_PADDING,
+                if(origin[column][row]){
+                    printColorCursor(row * 2 + rowFrame + X_PADDING,
                                  column + columnFrame + Y_PADDING,
                                  DEFAULT_FONT_COLOR,
                                  convertNumberToFullChar(sudoku[column][row]));
+                } else {
+                    printColorCursor(row * 2 + rowFrame + X_PADDING,
+                                 column + columnFrame + Y_PADDING,
+                                 CUSTOM_FONT_COLOR,
+                                 convertNumberToFullChar(sudoku[column][row]));
+                }
+
             }
         }
     }
@@ -281,7 +289,7 @@ void Sudoku::moveCursor(int key) {
     if (is_digit(key)) {
         if (!origin[row][column]) {
             if (!value_possible(row, column, key - KEY_NUM)) {
-                printColorCursor(X_PADDING, 14 + Y_PADDING, DEFAULT_FONT_COLOR,
+                printColorCursor(X_PADDING, 14 + Y_PADDING, CUSTOM_FONT_COLOR,
                                  "Can't insert number!");
             } else
                 sudoku[row][column] = key - KEY_NUM;
